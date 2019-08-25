@@ -12,17 +12,17 @@ namespace DeadToadRoad.Fun.Extensions
 
         public static Func<TA, TA[]> Append2<TA>(this TA[] target, TA a1)
         {
-            return Flip2<TA, TA, TA[], TA[]>(ArrayFunctions.Append2)(target)(a1);
+            return Flip<TA, TA, TA[], TA[]>(ArrayFunctions.Append2)(target)(a1);
         }
 
         public static Func<TA, Func<TA, TA[]>> Append3<TA>(this TA[] target, TA a1)
         {
-            return Flip3<TA, TA, TA, TA[], TA[]>(ArrayFunctions.Append3)(target)(a1);
+            return Flip<TA, TA, TA, TA[], TA[]>(ArrayFunctions.Append3)(target)(a1);
         }
 
         public static Func<TA, Func<TA, Func<TA, TA[]>>> Append4<TA>(this TA[] target, TA a1)
         {
-            return Flip4<TA, TA, TA, TA, TA[], TA[]>(ArrayFunctions.Append4)(target)(a1);
+            return Flip<TA, TA, TA, TA, TA[], TA[]>(ArrayFunctions.Append4)(target)(a1);
         }
 
         public static TA[] AppendN<TA>(this TA[] target, TA[] @as)
@@ -37,17 +37,17 @@ namespace DeadToadRoad.Fun.Extensions
 
         public static Func<TA, TA[]> Prepend2<TA>(this TA[] target, TA a1)
         {
-            return Flip2<TA, TA, TA[], TA[]>(ArrayFunctions.Prepend2)(target)(a1);
+            return Flip<TA, TA, TA[], TA[]>(ArrayFunctions.Prepend2)(target)(a1);
         }
 
         public static Func<TA, Func<TA, TA[]>> Prepend3<TA>(this TA[] target, TA a1)
         {
-            return Flip3<TA, TA, TA, TA[], TA[]>(ArrayFunctions.Prepend3)(target)(a1);
+            return Flip<TA, TA, TA, TA[], TA[]>(ArrayFunctions.Prepend3)(target)(a1);
         }
 
         public static Func<TA, Func<TA, Func<TA, TA[]>>> Prepend4<TA>(this TA[] target, TA a1)
         {
-            return Flip4<TA, TA, TA, TA, TA[], TA[]>(ArrayFunctions.Prepend4)(target)(a1);
+            return Flip<TA, TA, TA, TA, TA[], TA[]>(ArrayFunctions.Prepend4)(target)(a1);
         }
 
         public static TA[] PrependN<TA>(this TA[] target, TA[] @as)
@@ -57,17 +57,17 @@ namespace DeadToadRoad.Fun.Extensions
 
         public static Func<TA, TA[]> Prepend2R<TA>(this TA[] target, TA a1)
         {
-            return Flip2<TA, TA, TA[], TA[]>(ArrayFunctions.Prepend2R)(target)(a1);
+            return Flip<TA, TA, TA[], TA[]>(ArrayFunctions.Prepend2R)(target)(a1);
         }
 
         public static Func<TA, Func<TA, TA[]>> Prepend3R<TA>(this TA[] target, TA a1)
         {
-            return Flip3<TA, TA, TA, TA[], TA[]>(ArrayFunctions.Prepend3R)(target)(a1);
+            return Flip<TA, TA, TA, TA[], TA[]>(ArrayFunctions.Prepend3R)(target)(a1);
         }
 
         public static Func<TA, Func<TA, Func<TA, TA[]>>> Prepend4R<TA>(this TA[] target, TA a1)
         {
-            return Flip4<TA, TA, TA, TA, TA[], TA[]>(ArrayFunctions.Prepend4R)(target)(a1);
+            return Flip<TA, TA, TA, TA, TA[], TA[]>(ArrayFunctions.Prepend4R)(target)(a1);
         }
 
         public static TA[] PrependNR<TA>(this TA[] target, TA[] @as)
