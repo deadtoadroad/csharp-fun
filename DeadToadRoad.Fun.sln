@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DE87DFB3-D1CA-45C7-BC0E-9E9CF1942AE1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8B94A711-7139-4976-8760-D0B54C65B2A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadToadRoad.Fun", "src\DeadToadRoad.Fun\DeadToadRoad.Fun.csproj", "{779AFC19-8709-4D3E-BC42-6B1834D13C85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadToadRoad.Fun.Tests", "tests\DeadToadRoad.Fun.Tests\DeadToadRoad.Fun.Tests.csproj", "{543BFD68-38DF-4BDC-8247-74CC953CF919}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{779AFC19-8709-4D3E-BC42-6B1834D13C85} = {DE87DFB3-D1CA-45C7-BC0E-9E9CF1942AE1}
+		{543BFD68-38DF-4BDC-8247-74CC953CF919} = {8B94A711-7139-4976-8760-D0B54C65B2A4}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{779AFC19-8709-4D3E-BC42-6B1834D13C85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{779AFC19-8709-4D3E-BC42-6B1834D13C85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{779AFC19-8709-4D3E-BC42-6B1834D13C85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{779AFC19-8709-4D3E-BC42-6B1834D13C85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{543BFD68-38DF-4BDC-8247-74CC953CF919}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{543BFD68-38DF-4BDC-8247-74CC953CF919}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{543BFD68-38DF-4BDC-8247-74CC953CF919}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{543BFD68-38DF-4BDC-8247-74CC953CF919}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
