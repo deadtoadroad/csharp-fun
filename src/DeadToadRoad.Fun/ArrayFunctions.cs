@@ -36,17 +36,17 @@ namespace DeadToadRoad.Fun
 
         public static Func<TA, Func<TA[], TA[]>> Prepend2<TA>(TA a1)
         {
-            return a2 => PrependN(new[] {a2, a1});
+            return a2 => PrependN(new[] {a1, a2});
         }
 
         public static Func<TA, Func<TA, Func<TA[], TA[]>>> Prepend3<TA>(TA a1)
         {
-            return a2 => a3 => PrependN(new[] {a3, a2, a1});
+            return a2 => a3 => PrependN(new[] {a1, a2, a3});
         }
 
         public static Func<TA, Func<TA, Func<TA, Func<TA[], TA[]>>>> Prepend4<TA>(TA a1)
         {
-            return a2 => a3 => a4 => PrependN(new[] {a4, a3, a2, a1});
+            return a2 => a3 => a4 => PrependN(new[] {a1, a2, a3, a4});
         }
 
         public static Func<TA[], TA[]> PrependN<TA>(TA[] @as)
@@ -56,17 +56,17 @@ namespace DeadToadRoad.Fun
 
         public static Func<TA, Func<TA[], TA[]>> Prepend2R<TA>(TA a1)
         {
-            return a2 => PrependNR(new[] {a2, a1});
+            return a2 => PrependNR(new[] {a1, a2});
         }
 
         public static Func<TA, Func<TA, Func<TA[], TA[]>>> Prepend3R<TA>(TA a1)
         {
-            return a2 => a3 => PrependNR(new[] {a3, a2, a1});
+            return a2 => a3 => PrependNR(new[] {a1, a2, a3});
         }
 
         public static Func<TA, Func<TA, Func<TA, Func<TA[], TA[]>>>> Prepend4R<TA>(TA a1)
         {
-            return a2 => a3 => a4 => PrependNR(new[] {a4, a3, a2, a1});
+            return a2 => a3 => a4 => PrependNR(new[] {a1, a2, a3, a4});
         }
 
         public static Func<TA[], TA[]> PrependNR<TA>(TA[] @as)

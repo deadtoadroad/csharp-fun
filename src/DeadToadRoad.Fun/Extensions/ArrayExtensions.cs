@@ -1,5 +1,5 @@
 using System;
-using static DeadToadRoad.Fun.LambdaFunctions;
+using static DeadToadRoad.Fun.Functions;
 
 namespace DeadToadRoad.Fun.Extensions
 {

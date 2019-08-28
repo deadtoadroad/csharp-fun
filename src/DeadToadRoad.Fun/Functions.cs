@@ -2,7 +2,7 @@ using System;
 
 namespace DeadToadRoad.Fun
 {
-    public static class LambdaFunctions
+    public static class Functions
     {
         #region Do
 
