@@ -34,6 +34,18 @@ namespace DeadToadRoad.Fun.Extensions
             return ObjectFunctions.IsNot(p)(a);
         }
 
+        public static bool IsEqual<TA>(this TA a, TA v)
+            where TA : struct
+        {
+            return ObjectFunctions.IsEqual(v)(a);
+        }
+
+        public static bool IsNotEqual<TA>(this TA a, TA v)
+            where TA : struct
+        {
+            return ObjectFunctions.IsNotEqual(v)(a);
+        }
+
         public static bool IsNull<TA>(this TA a)
         {
             return ObjectFunctions.IsNull(a);

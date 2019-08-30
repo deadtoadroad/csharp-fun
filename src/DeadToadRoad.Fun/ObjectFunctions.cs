@@ -35,6 +35,16 @@ namespace DeadToadRoad.Fun
             return Not(p);
         }
 
+        public static Func<TA, bool> IsEqual<TA>(TA v)
+        {
+            return a => a.Equals(v);
+        }
+
+        public static Func<TA, bool> IsNotEqual<TA>(TA v)
+        {
+            return Not(IsEqual(v));
+        }
+
         public static bool IsNull<TA>(TA a)
         {
             return a == null;

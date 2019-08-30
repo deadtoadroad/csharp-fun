@@ -4,18 +4,6 @@ namespace DeadToadRoad.Fun.Extensions
     {
         #region Predicates
 
-        public static bool IsEqual<TA>(this TA a, TA v)
-            where TA : struct
-        {
-            return ValueTypeFunctions.IsEqual(v)(a);
-        }
-
-        public static bool IsNotEqual<TA>(this TA a, TA v)
-            where TA : struct
-        {
-            return ValueTypeFunctions.IsNotEqual(v)(a);
-        }
-
         public static bool IsDefault<TA>(this TA a)
             where TA : struct
         {
