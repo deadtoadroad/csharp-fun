@@ -4,9 +4,9 @@ namespace DeadToadRoad.Fun
 {
     public static class Functions
     {
-        #region Do
+        #region AsFunc
 
-        public static Func<TA, TA> Do<TA>(Action<TA> f)
+        public static Func<TA, TA> AsFunc<TA>(Action<TA> f)
         {
             return a => {
                 f(a);
@@ -108,6 +108,47 @@ namespace DeadToadRoad.Fun
         public static Func<Func<TB, TC>, Func<Func<TC, TD>, Func<Func<TD, TE>, Func<Func<TE, TF>, Func<TA, TF>>>>> Flow5<TA, TB, TC, TD, TE, TF>(Func<TA, TB> fab)
         {
             return fbc => fcd => fde => fef => a => fef(fde(fcd(fbc(fab(a)))));
+        }
+
+        #endregion
+
+        #region NoOp
+
+        public static void NoOp()
+        {
+        }
+
+        public static void NoOp<TA>(TA _)
+        {
+        }
+
+        #endregion
+
+        #region Not
+
+        public static Func<TA, bool> Not<TA>(Func<TA, bool> f)
+        {
+            return a => !f(a);
+        }
+
+        public static Func<TA, Func<TB, bool>> Not<TA, TB>(Func<TA, Func<TB, bool>> f)
+        {
+            return a => Not(f(a));
+        }
+
+        public static Func<TA, Func<TB, Func<TC, bool>>> Not<TA, TB, TC>(Func<TA, Func<TB, Func<TC, bool>>> f)
+        {
+            return a => Not(f(a));
+        }
+
+        public static Func<TA, Func<TB, Func<TC, Func<TD, bool>>>> Not<TA, TB, TC, TD>(Func<TA, Func<TB, Func<TC, Func<TD, bool>>>> f)
+        {
+            return a => Not(f(a));
+        }
+
+        public static Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, bool>>>>> Not<TA, TB, TC, TD, TE>(Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, bool>>>>> f)
+        {
+            return a => Not(f(a));
         }
 
         #endregion
