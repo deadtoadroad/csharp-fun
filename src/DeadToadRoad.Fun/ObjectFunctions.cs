@@ -1,9 +1,8 @@
 using System;
-using static DeadToadRoad.Fun.Functions;
 
 namespace DeadToadRoad.Fun
 {
-    public static class ObjectFunctions
+    public static partial class Functions
     {
         #region Delay
 

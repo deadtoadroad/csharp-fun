@@ -2,7 +2,7 @@ using System;
 
 namespace DeadToadRoad.Fun
 {
-    public static class ArrayFunctions
+    public static partial class Functions
     {
         public static Func<TA[], TA[]> Append<TA>(TA a)
         {
@@ -28,7 +28,7 @@ namespace DeadToadRoad.Fun
 
         public static Func<TA[], TA[]> Prepend<TA>(TA[] @as)
         {
-            return Functions.Flip<TA[], TA[], TA[]>(Append)(@as);
+            return Flip<TA[], TA[], TA[]>(Append)(@as);
         }
     }
 }

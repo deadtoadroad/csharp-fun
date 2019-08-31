@@ -1,5 +1,5 @@
 using Xunit;
-using static DeadToadRoad.Fun.ArrayFunctions;
+using static DeadToadRoad.Fun.Functions;
 
 namespace DeadToadRoad.Fun.Tests
 {

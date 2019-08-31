@@ -1,4 +1,7 @@
-namespace DeadToadRoad.Fun.Option
+using System;
+using System.Collections.Generic;
+
+namespace DeadToadRoad.Fun
 {
     public class None<TA> : Option<TA>
     {
@@ -6,6 +9,24 @@ namespace DeadToadRoad.Fun.Option
         {
         }
 
-        public override bool IsSome => false;
+        public override Option<TB> FlatMap<TB>(Func<TA, Option<TB>> f)
+        {
+            return Functions.None<TB>();
+        }
+
+        public override Option<TB> Map<TB>(Func<TA, TB> f)
+        {
+            return Functions.None<TB>();
+        }
+
+        public override TA[] ToArray()
+        {
+            return new TA[0];
+        }
+
+        public override IList<TA> ToList()
+        {
+            return new List<TA>();
+        }
     }
 }

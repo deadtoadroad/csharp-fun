@@ -7,13 +7,13 @@ namespace DeadToadRoad.Fun.Extensions
         public static bool IsDefault<TA>(this TA a)
             where TA : struct
         {
-            return ValueTypeFunctions.IsDefault(a);
+            return Functions.IsDefault(a);
         }
 
         public static bool IsNotDefault<TA>(this TA a)
             where TA : struct
         {
-            return ValueTypeFunctions.IsNotDefault(a);
+            return Functions.IsNotDefault(a);
         }
 
         #endregion

@@ -1,8 +1,7 @@
-using static DeadToadRoad.Fun.Option.OptionFunctions;
-using static DeadToadRoad.Fun.Functions;
-using static DeadToadRoad.Fun.ObjectFunctions;
+using System;
+using System.Collections.Generic;
 
-namespace DeadToadRoad.Fun.Option
+namespace DeadToadRoad.Fun
 {
     public abstract class Option<TA>
     {
@@ -10,12 +9,9 @@ namespace DeadToadRoad.Fun.Option
 
         protected virtual TA A { get; } = default;
 
-        public abstract bool IsSome { get; }
-        public bool IsNone => Not(IsSome);
-
         public static Option<TA> From(TA a)
         {
-            return IsNotNull(a) ? (Option<TA>) Some(a) : None;
+            return Functions.IsNotNull(a) ? (Option<TA>) Functions.Some(a) : None;
         }
 
         public static implicit operator Option<TA>(TA a)
@@ -27,5 +23,10 @@ namespace DeadToadRoad.Fun.Option
         {
             return option.A;
         }
+
+        public abstract Option<TB> FlatMap<TB>(Func<TA, Option<TB>> f);
+        public abstract Option<TB> Map<TB>(Func<TA, TB> f);
+        public abstract TA[] ToArray();
+        public abstract IList<TA> ToList();
     }
 }

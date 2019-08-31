@@ -8,7 +8,7 @@ namespace DeadToadRoad.Fun.Extensions
 
         public static Func<TA> Delay<TA>(this TA a)
         {
-            return ObjectFunctions.Delay(a);
+            return Functions.Delay(a);
         }
 
         #endregion
@@ -17,7 +17,7 @@ namespace DeadToadRoad.Fun.Extensions
 
         public static TA Identity<TA>(this TA a)
         {
-            return ObjectFunctions.Identity(a);
+            return Functions.Identity(a);
         }
 
         #endregion
@@ -26,34 +26,34 @@ namespace DeadToadRoad.Fun.Extensions
 
         public static bool Is<TA>(this TA a, Func<TA, bool> p)
         {
-            return ObjectFunctions.Is(p)(a);
+            return Functions.Is(p)(a);
         }
 
         public static bool IsNot<TA>(this TA a, Func<TA, bool> p)
         {
-            return ObjectFunctions.IsNot(p)(a);
+            return Functions.IsNot(p)(a);
         }
 
         public static bool IsEqual<TA>(this TA a, TA v)
             where TA : struct
         {
-            return ObjectFunctions.IsEqual(v)(a);
+            return Functions.IsEqual(v)(a);
         }
 
         public static bool IsNotEqual<TA>(this TA a, TA v)
             where TA : struct
         {
-            return ObjectFunctions.IsNotEqual(v)(a);
+            return Functions.IsNotEqual(v)(a);
         }
 
         public static bool IsNull<TA>(this TA a)
         {
-            return ObjectFunctions.IsNull(a);
+            return Functions.IsNull(a);
         }
 
         public static bool IsNotNull<TA>(this TA a)
         {
-            return ObjectFunctions.IsNotNull(a);
+            return Functions.IsNotNull(a);
         }
 
         #endregion

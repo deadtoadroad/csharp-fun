@@ -1,17 +1,35 @@
 using System;
-using static DeadToadRoad.Fun.ObjectFunctions;
+using System.Collections.Generic;
 
-namespace DeadToadRoad.Fun.Option
+namespace DeadToadRoad.Fun
 {
     public class Some<TA> : Option<TA>
     {
         public Some(TA a)
         {
-            A = IsNotNull(a) ? a : throw new ArgumentNullException(nameof(a));
+            A = Functions.IsNotNull(a) ? a : throw new ArgumentNullException(nameof(a));
         }
 
         protected override TA A { get; }
 
-        public override bool IsSome => true;
+        public override Option<TB> FlatMap<TB>(Func<TA, Option<TB>> f)
+        {
+            return f(A);
+        }
+
+        public override Option<TB> Map<TB>(Func<TA, TB> f)
+        {
+            return Functions.Some(f(A));
+        }
+
+        public override TA[] ToArray()
+        {
+            return new[] {A};
+        }
+
+        public override IList<TA> ToList()
+        {
+            return new List<TA> {A};
+        }
     }
 }
