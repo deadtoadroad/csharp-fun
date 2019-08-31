@@ -8,7 +8,7 @@ namespace DeadToadRoad.Fun.Tests.Extensions
         private readonly int[] _defaultTarget = {4, 5};
 
         [Fact]
-        public void Append1_Works()
+        public void Append_For1Works()
         {
             var expected = new[] {4, 5, 6};
             var actual = _defaultTarget.Append(6);
@@ -16,7 +16,7 @@ namespace DeadToadRoad.Fun.Tests.Extensions
         }
 
         [Fact]
-        public void AppendN_Works()
+        public void Append_ForNWorks()
         {
             var expected = new[] {4, 5, 6, 7, 8, 9};
             var actual = _defaultTarget.Append(6, 7, 8, 9);
@@ -24,7 +24,7 @@ namespace DeadToadRoad.Fun.Tests.Extensions
         }
 
         [Fact]
-        public void Prepend1_Works()
+        public void Prepend_For1Works()
         {
             var expected = new[] {3, 4, 5};
             var actual = _defaultTarget.Prepend(3);
@@ -32,7 +32,7 @@ namespace DeadToadRoad.Fun.Tests.Extensions
         }
 
         [Fact]
-        public void PrependN_Works()
+        public void Prepend_ForNWorks()
         {
             var expected = new[] {0, 1, 2, 3, 4, 5};
             var actual = _defaultTarget.Prepend(0, 1, 2, 3);

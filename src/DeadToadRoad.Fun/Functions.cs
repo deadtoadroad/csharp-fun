@@ -126,9 +126,19 @@ namespace DeadToadRoad.Fun
 
         #region Not
 
+        public static bool Not(bool a)
+        {
+            return !a;
+        }
+
+        public static Func<bool> Not(Func<bool> f)
+        {
+            return () => Not(f());
+        }
+
         public static Func<TA, bool> Not<TA>(Func<TA, bool> f)
         {
-            return a => !f(a);
+            return a => Not(f(a));
         }
 
         public static Func<TA, Func<TB, bool>> Not<TA, TB>(Func<TA, Func<TB, bool>> f)
