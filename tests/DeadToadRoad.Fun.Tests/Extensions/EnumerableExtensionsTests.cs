@@ -44,7 +44,7 @@ namespace DeadToadRoad.Fun.Tests.Extensions
         {
             var expected = new[] {"a", "b", "c"};
 
-            var actual = new Option<string>[] {None<string>(), Some("a"), Some("b"), None<string>(), Some("c"), None<string>()}
+            var actual = new[] {None<string>(), Some("a"), Some("b"), None<string>(), Some("c"), None<string>()}
                 .FlatMap(o => o.ToArray());
 
             Assert.Equal(expected, actual);

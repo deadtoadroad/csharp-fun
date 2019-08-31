@@ -1,13 +1,15 @@
-using System;
-
 namespace DeadToadRoad.Fun.Extensions
 {
     public static class OptionExtensions
     {
+        #region Flatten
+
         public static Option<TA> Flatten<TA>(this Option<Option<TA>> a)
         {
-            throw new NotImplementedException();
+            return Functions.Flatten(a);
         }
+
+        #endregion
 
         #region Predicates
 

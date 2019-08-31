@@ -2,14 +2,23 @@ namespace DeadToadRoad.Fun
 {
     public static partial class Functions
     {
+        #region Flatten
+
+        public static Option<TA> Flatten<TA>(Option<Option<TA>> a)
+        {
+            return IsSome(a) ? a.GetUnsafe() : None<TA>();
+        }
+
+        #endregion
+
         #region Factories
 
-        public static Some<TA> Some<TA>(TA a)
+        public static Option<TA> Some<TA>(TA a)
         {
             return new Some<TA>(a);
         }
 
-        public static None<TA> None<TA>()
+        public static Option<TA> None<TA>()
         {
             return Option<TA>.None;
         }
