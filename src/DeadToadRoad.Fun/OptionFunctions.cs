@@ -1,24 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
-
 namespace DeadToadRoad.Fun
 {
     public static partial class Functions
     {
-        #region Flatten
-
-        public static IEnumerable<TA> Flatten<TA>(IEnumerable<Option<TA>> @as)
-        {
-            return @as.SelectMany(a => a.ToArray());
-        }
-
-        public static Option<TA> Flatten<TA>(Option<Option<TA>> a)
-        {
-            return IsSome(a) ? a.GetUnsafe() : None<TA>();
-        }
-
-        #endregion
-
         #region Factories
 
         public static Option<TA> Some<TA>(TA a)

@@ -9,13 +9,13 @@ namespace DeadToadRoad.Fun.Extensions
         public static Func<Func<TA?, TB>, Option<TB>> If<TA, TB>(this TA? a, TA? v)
             where TA : struct
         {
-            return f => Functions.If<TA, TB>(v)(f)(a);
+            return Functions.Flip(Functions.If<TA, TB>(v))(a);
         }
 
         public static Func<Func<TA?, TB>, Option<TB>> IfNot<TA, TB>(this TA? a, TA? v)
             where TA : struct
         {
-            return f => Functions.IfNot<TA, TB>(v)(f)(a);
+            return Functions.Flip(Functions.IfNot<TA, TB>(v))(a);
         }
 
         #endregion
