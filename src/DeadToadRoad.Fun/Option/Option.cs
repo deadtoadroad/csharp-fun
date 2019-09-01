@@ -14,17 +14,8 @@ namespace DeadToadRoad.Fun
             return Functions.IsNotNull(a) ? Functions.Some(a) : None;
         }
 
-        public static implicit operator Option<TA>(TA a)
-        {
-            return From(a);
-        }
-
-        public static implicit operator TA(Option<TA> option)
-        {
-            return option.A;
-        }
-
         public abstract Option<TB> FlatMap<TB>(Func<TA, Option<TB>> f);
+        public abstract TA GetOrElse(TA @else);
 
         public TA GetUnsafe()
         {

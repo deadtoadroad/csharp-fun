@@ -4,6 +4,8 @@ namespace DeadToadRoad.Fun
 {
     public static partial class Functions
     {
+        #region Append
+
         public static Func<TA[], TA[]> Append<TA>(TA a)
         {
             return Append(new[] {a});
@@ -21,6 +23,10 @@ namespace DeadToadRoad.Fun
             };
         }
 
+        #endregion
+
+        #region Prepend
+
         public static Func<TA[], TA[]> Prepend<TA>(TA a)
         {
             return Prepend(new[] {a});
@@ -30,5 +36,7 @@ namespace DeadToadRoad.Fun
         {
             return Flip<TA[], TA[], TA[]>(Append)(@as);
         }
+
+        #endregion
     }
 }

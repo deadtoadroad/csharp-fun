@@ -10,7 +10,7 @@ namespace DeadToadRoad.Fun.Tests
         #region Not
 
         [Scenario]
-        public void Not_ForBoolWorks(bool a, bool actual)
+        public void Not_Bool(bool a, bool actual)
         {
             "Given false"
                 .x(() => a = false);
@@ -23,10 +23,10 @@ namespace DeadToadRoad.Fun.Tests
         }
 
         [Scenario]
-        public void Not_ForFuncBoolWorks(Func<bool> f, bool actual)
+        public void Not_FuncBool(Func<bool> f, bool actual)
         {
             "Given a function that returns false"
-                .x(() => f = Delay(false));
+                .x(() => f = () => false);
 
             "When not is called and the result executed"
                 .x(() => actual = Not(f)());
@@ -36,7 +36,7 @@ namespace DeadToadRoad.Fun.Tests
         }
 
         [Scenario]
-        public void Not_ForFunc1BoolWorks(Func<object, bool> f, bool actual)
+        public void Not_Func1Bool(Func<object, bool> f, bool actual)
         {
             "Given a function that returns false"
                 .x(() => f = a => false);
@@ -49,7 +49,7 @@ namespace DeadToadRoad.Fun.Tests
         }
 
         [Scenario]
-        public void Not_ForFunc2BoolWorks(Func<object, Func<object, bool>> f, bool actual)
+        public void Not_Func2Bool(Func<object, Func<object, bool>> f, bool actual)
         {
             "Given a function that returns false"
                 .x(() => f = a => b => false);
@@ -62,7 +62,7 @@ namespace DeadToadRoad.Fun.Tests
         }
 
         [Scenario]
-        public void Not_ForFunc3BoolWorks(Func<object, Func<object, Func<object, bool>>> f, bool actual)
+        public void Not_Func3Bool(Func<object, Func<object, Func<object, bool>>> f, bool actual)
         {
             "Given a function that returns false"
                 .x(() => f = a => b => c => false);
@@ -75,7 +75,7 @@ namespace DeadToadRoad.Fun.Tests
         }
 
         [Scenario]
-        public void Not_ForFunc4BoolWorks(Func<object, Func<object, Func<object, Func<object, bool>>>> f, bool actual)
+        public void Not_Func4Bool(Func<object, Func<object, Func<object, Func<object, bool>>>> f, bool actual)
         {
             "Given a function that returns false"
                 .x(() => f = a => b => c => d => false);
@@ -88,7 +88,7 @@ namespace DeadToadRoad.Fun.Tests
         }
 
         [Scenario]
-        public void Not_ForFunc5BoolWorks(Func<object, Func<object, Func<object, Func<object, Func<object, bool>>>>> f, bool actual)
+        public void Not_Func5Bool(Func<object, Func<object, Func<object, Func<object, Func<object, bool>>>>> f, bool actual)
         {
             "Given a function that returns false"
                 .x(() => f = a => b => c => d => e => false);

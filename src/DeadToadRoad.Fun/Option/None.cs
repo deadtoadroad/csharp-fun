@@ -14,6 +14,11 @@ namespace DeadToadRoad.Fun
             return Functions.None<TB>();
         }
 
+        public override TA GetOrElse(TA @else)
+        {
+            return A;
+        }
+
         public override Option<TB> Map<TB>(Func<TA, TB> f)
         {
             return Functions.None<TB>();

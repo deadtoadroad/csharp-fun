@@ -1,23 +1,53 @@
 using System;
+using System.Collections.Generic;
 
 namespace DeadToadRoad.Fun.Extensions
 {
     public static class ObjectExtensions
     {
-        #region Delay
-
-        public static Func<TA> Delay<TA>(this TA a)
-        {
-            return Functions.Delay(a);
-        }
-
-        #endregion
-
         #region Identity
 
         public static TA Identity<TA>(this TA a)
         {
             return Functions.Identity(a);
+        }
+
+        #endregion
+
+        #region If
+
+        public static Func<Func<TA, TB>, Option<TB>> If<TA, TB>(this TA a, Func<TA, bool> p)
+        {
+            return Functions.Flip(Functions.If<TA, TB>(p))(a);
+        }
+
+        public static Func<Func<TA, TB>, Option<TB>> IfNot<TA, TB>(this TA a, Func<TA, bool> p)
+        {
+            return Functions.Flip(Functions.IfNot<TA, TB>(p))(a);
+        }
+
+        #endregion
+
+        #region Match
+
+        public static Func<Func<TA, TB>, TB> Match<TA, TB>(this TA a, Func<TA, Option<TB>> @if)
+        {
+            return Functions.Flip(Functions.Match(@if))(a);
+        }
+
+        public static Func<Func<TA, TB>, TB> Match<TA, TB>(this TA a, IEnumerable<Func<TA, Option<TB>>> ifs)
+        {
+            return Functions.Flip(Functions.Match(ifs))(a);
+        }
+
+        public static TB MatchUnsafe<TA, TB>(this TA a, Func<TA, Option<TB>> @if)
+        {
+            return Functions.MatchUnsafe(@if)(a);
+        }
+
+        public static TB MatchUnsafe<TA, TB>(this TA a, IEnumerable<Func<TA, Option<TB>>> ifs)
+        {
+            return Functions.MatchUnsafe(ifs)(a);
         }
 
         #endregion
