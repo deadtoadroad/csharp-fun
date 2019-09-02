@@ -5,8 +5,8 @@ namespace DeadToadRoad.Fun
 {
     public static partial class Functions
     {
-        private static readonly string Dash = "-";
-        private static readonly string Space = " ";
+        private const string Dash = "-";
+        private const string Space = " ";
 
         #region Join
 

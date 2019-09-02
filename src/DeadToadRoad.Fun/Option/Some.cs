@@ -12,6 +12,9 @@ namespace DeadToadRoad.Fun
 
         protected override TA A { get; }
 
+        public override bool IsSome => true;
+        public override bool IsNone => false;
+
         public override Option<TB> FlatMap<TB>(Func<TA, Option<TB>> f)
         {
             return f(A);

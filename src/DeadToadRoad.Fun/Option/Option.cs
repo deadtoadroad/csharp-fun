@@ -9,10 +9,8 @@ namespace DeadToadRoad.Fun
 
         protected virtual TA A { get; } = default;
 
-        public static Option<TA> From(TA a)
-        {
-            return Functions.IsNotNull(a) ? Functions.Some(a) : None;
-        }
+        public abstract bool IsSome { get; }
+        public abstract bool IsNone { get; }
 
         public abstract Option<TB> FlatMap<TB>(Func<TA, Option<TB>> f);
         public abstract TA GetOrElse(TA @else);

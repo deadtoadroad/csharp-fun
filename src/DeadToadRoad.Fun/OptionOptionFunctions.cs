@@ -6,7 +6,7 @@ namespace DeadToadRoad.Fun
 
         public static Option<TA> Flatten<TA>(Option<Option<TA>> a)
         {
-            return IsSome(a) ? a.GetUnsafe() : None<TA>();
+            return a.IsSome ? a.GetUnsafe() : None<TA>();
         }
 
         #endregion

@@ -6,12 +6,22 @@ namespace DeadToadRoad.Fun.Extensions
     {
         #region If
 
-        public static Option<TA> If<TA>(this bool a, Func<TA> f)
+        public static Option<TB> If<TB>(this bool a, TB b)
+        {
+            return Functions.If(b)(a);
+        }
+
+        public static Option<TB> IfNot<TB>(this bool a, TB b)
+        {
+            return Functions.IfNot(b)(a);
+        }
+
+        public static Option<TB> If<TB>(this bool a, Func<TB> f)
         {
             return Functions.If(f)(a);
         }
 
-        public static Option<TA> IfNot<TA>(this bool a, Func<TA> f)
+        public static Option<TB> IfNot<TB>(this bool a, Func<TB> f)
         {
             return Functions.IfNot(f)(a);
         }

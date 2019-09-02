@@ -1,5 +1,4 @@
 using System;
-using DeadToadRoad.Fun.Extensions;
 using Xunit;
 using static DeadToadRoad.Fun.Functions;
 
@@ -16,7 +15,7 @@ namespace DeadToadRoad.Fun.Tests
         public void If_True()
         {
             var actual = If(DefaultF)(true);
-            Assert.True(actual.IsSome());
+            Assert.True(actual.IsSome);
             Assert.Equal(DefaultExpected, actual.GetUnsafe());
         }
 
@@ -24,7 +23,7 @@ namespace DeadToadRoad.Fun.Tests
         public void If_False()
         {
             var actual = If(DefaultF)(false);
-            Assert.True(actual.IsNone());
+            Assert.True(actual.IsNone);
             Assert.Equal(default, actual.GetUnsafe());
         }
 
@@ -32,7 +31,7 @@ namespace DeadToadRoad.Fun.Tests
         public void IfNot_True()
         {
             var actual = IfNot(DefaultF)(true);
-            Assert.True(actual.IsNone());
+            Assert.True(actual.IsNone);
             Assert.Equal(default, actual.GetUnsafe());
         }
 
@@ -40,7 +39,7 @@ namespace DeadToadRoad.Fun.Tests
         public void IfNot_False()
         {
             var actual = IfNot(DefaultF)(false);
-            Assert.True(actual.IsSome());
+            Assert.True(actual.IsSome);
             Assert.Equal(DefaultExpected, actual.GetUnsafe());
         }
 

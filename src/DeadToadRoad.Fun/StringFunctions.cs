@@ -6,7 +6,7 @@ namespace DeadToadRoad.Fun
 
         public static bool IsEmpty(string a)
         {
-            return IsNotNull(a) && IsNullOrEmpty(a);
+            return a == string.Empty;
         }
 
         public static bool IsNotEmpty(string a)

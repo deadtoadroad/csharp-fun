@@ -6,14 +6,24 @@ namespace DeadToadRoad.Fun
     {
         #region If
 
-        public static Func<bool, Option<TA>> If<TA>(Func<TA> f)
+        public static Func<bool, Option<TB>> If<TB>(TB b)
         {
-            return If<bool, TA>(IsTrue)(_ => f());
+            return If(() => b);
         }
 
-        public static Func<bool, Option<TA>> IfNot<TA>(Func<TA> f)
+        public static Func<bool, Option<TB>> IfNot<TB>(TB b)
         {
-            return If<bool, TA>(IsFalse)(_ => f());
+            return IfNot(() => b);
+        }
+
+        public static Func<bool, Option<TB>> If<TB>(Func<TB> f)
+        {
+            return If<bool, TB>(IsTrue)(_ => f());
+        }
+
+        public static Func<bool, Option<TB>> IfNot<TB>(Func<TB> f)
+        {
+            return If<bool, TB>(IsFalse)(_ => f());
         }
 
         #endregion

@@ -1,5 +1,4 @@
 using System;
-using DeadToadRoad.Fun.Extensions;
 using Xunit;
 using static DeadToadRoad.Fun.Functions;
 
@@ -18,7 +17,7 @@ namespace DeadToadRoad.Fun.Tests
             var actual = Some("wut")
                 .FlatMap(If<string, int>(IsNotEmpty)(DefaultMap));
 
-            Assert.True(actual.IsSome());
+            Assert.True(actual.IsSome);
             Assert.Equal(DefaultExpected, actual.GetUnsafe());
         }
 
@@ -28,7 +27,7 @@ namespace DeadToadRoad.Fun.Tests
             var actual = Some(string.Empty)
                 .FlatMap(If<string, int>(IsNotEmpty)(DefaultMap));
 
-            Assert.True(actual.IsNone());
+            Assert.True(actual.IsNone);
             Assert.Equal(default, actual.GetUnsafe());
         }
 
@@ -38,7 +37,7 @@ namespace DeadToadRoad.Fun.Tests
             var actual = None<string>()
                 .FlatMap(If<string, int>(IsNotEmpty)(DefaultMap));
 
-            Assert.True(actual.IsNone());
+            Assert.True(actual.IsNone);
             Assert.Equal(default, actual.GetUnsafe());
         }
 

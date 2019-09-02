@@ -2,16 +2,17 @@ namespace DeadToadRoad.Fun.Extensions
 {
     public static class OptionExtensions
     {
-        #region Predicates
+        #region Factories
 
-        public static bool IsSome<TA>(this Option<TA> a)
+        public static Option<TA> AsOption<TA>(this TA? a)
+            where TA : struct
         {
-            return Functions.IsSome(a);
+            return Functions.AsOption(a);
         }
 
-        public static bool IsNone<TA>(this Option<TA> a)
+        public static Option<TA> AsOption<TA>(this TA a)
         {
-            return Functions.IsNone(a);
+            return Functions.AsOption(a);
         }
 
         #endregion

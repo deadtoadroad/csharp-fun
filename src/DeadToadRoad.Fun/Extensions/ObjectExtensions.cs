@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace DeadToadRoad.Fun.Extensions
 {
@@ -28,24 +27,28 @@ namespace DeadToadRoad.Fun.Extensions
 
         #endregion
 
-        #region Match
+        #region Map
 
-        public static Func<Func<TA, TB>, TB> Match<TA, TB>(this TA a, Func<TA, Option<TB>> @if)
+        public static Func<Func<TB>, TB> BiMap<TA, TB>(this TA a, Func<TA, TB> f)
         {
-            return Functions.Flip(Functions.Match(@if))(a);
+            return Functions.Flip(Functions.BiMap(f))(a);
         }
 
-        public static Func<Func<TA, TB>, TB> Match<TA, TB>(this TA a, IEnumerable<Func<TA, Option<TB>>> ifs)
+        public static TB MapUnsafe<TA, TB>(this TA a, Func<TA, TB> f)
+        {
+            return Functions.MapUnsafe(f)(a);
+        }
+
+        #endregion
+
+        #region Match
+
+        public static Func<Func<TA, TB>, TB> Match<TA, TB>(this TA a, params Func<TA, Option<TB>>[] ifs)
         {
             return Functions.Flip(Functions.Match(ifs))(a);
         }
 
-        public static TB MatchUnsafe<TA, TB>(this TA a, Func<TA, Option<TB>> @if)
-        {
-            return Functions.MatchUnsafe(@if)(a);
-        }
-
-        public static TB MatchUnsafe<TA, TB>(this TA a, IEnumerable<Func<TA, Option<TB>>> ifs)
+        public static TB MatchUnsafe<TA, TB>(this TA a, params Func<TA, Option<TB>>[] ifs)
         {
             return Functions.MatchUnsafe(ifs)(a);
         }

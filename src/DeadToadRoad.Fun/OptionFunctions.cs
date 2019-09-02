@@ -4,6 +4,18 @@ namespace DeadToadRoad.Fun
     {
         #region Factories
 
+        public static Option<TA> AsOption<TA>(TA? a)
+            where TA : struct
+        {
+            // ReSharper disable once PossibleInvalidOperationException
+            return IsNotNull(a) ? Some(a.Value) : None<TA>();
+        }
+
+        public static Option<TA> AsOption<TA>(TA a)
+        {
+            return IsNotNull(a) ? Some(a) : None<TA>();
+        }
+
         public static Option<TA> Some<TA>(TA a)
         {
             return new Some<TA>(a);
@@ -12,20 +24,6 @@ namespace DeadToadRoad.Fun
         public static Option<TA> None<TA>()
         {
             return Option<TA>.None;
-        }
-
-        #endregion
-
-        #region Predicates
-
-        public static bool IsSome<TA>(Option<TA> a)
-        {
-            return a is Some<TA>;
-        }
-
-        public static bool IsNone<TA>(Option<TA> a)
-        {
-            return a is None<TA>;
         }
 
         #endregion

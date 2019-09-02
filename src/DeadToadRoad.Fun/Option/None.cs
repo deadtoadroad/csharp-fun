@@ -9,6 +9,9 @@ namespace DeadToadRoad.Fun
         {
         }
 
+        public override bool IsSome => false;
+        public override bool IsNone => true;
+
         public override Option<TB> FlatMap<TB>(Func<TA, Option<TB>> f)
         {
             return Functions.None<TB>();
