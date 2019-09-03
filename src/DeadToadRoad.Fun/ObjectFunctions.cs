@@ -17,12 +17,22 @@ namespace DeadToadRoad.Fun
 
         public static Func<Func<TA, TB>, Func<TA, Option<TB>>> If<TA, TB>(Func<TA, bool> p)
         {
-            return f => a => p(a) ? Some(f(a)) : None<TB>();
+            return f => a => AsOption(a).Filter(p).Map(f);
         }
 
         public static Func<Func<TA, TB>, Func<TA, Option<TB>>> IfNot<TA, TB>(Func<TA, bool> p)
         {
             return If<TA, TB>(Not(p));
+        }
+
+        public static Func<Func<TA, TB>, Func<TA, TB>> IfUnsafe<TA, TB>(Func<TA, bool> p)
+        {
+            return f => a => If<TA, TB>(p)(f)(a).GetUnsafe();
+        }
+
+        public static Func<Func<TA, TB>, Func<TA, TB>> IfNotUnsafe<TA, TB>(Func<TA, bool> p)
+        {
+            return f => a => IfNot<TA, TB>(p)(f)(a).GetUnsafe();
         }
 
         #endregion
@@ -31,12 +41,12 @@ namespace DeadToadRoad.Fun
 
         public static Func<Func<TB>, Func<TA, TB>> BiMap<TA, TB>(Func<TA, TB> f)
         {
-            return @null => Match(If<TA, TB>(IsNotNull)(f))(_ => @null());
+            return @null => a => AsOption(a).Map(f).GetOrElse(@null());
         }
 
         public static Func<TA, TB> MapUnsafe<TA, TB>(Func<TA, TB> f)
         {
-            return MatchUnsafe(If<TA, TB>(IsNotNull)(f));
+            return a => AsOption(a).Map(f).GetUnsafe();
         }
 
         #endregion

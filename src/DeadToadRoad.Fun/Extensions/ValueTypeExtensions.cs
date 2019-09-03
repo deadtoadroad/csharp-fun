@@ -18,6 +18,18 @@ namespace DeadToadRoad.Fun.Extensions
             return Functions.Flip(Functions.IfNot<TA, TB>(v))(a);
         }
 
+        public static Func<Func<TA, TB>, TB> IfUnsafe<TA, TB>(this TA a, TA v)
+            where TA : struct
+        {
+            return Functions.Flip(Functions.IfUnsafe<TA, TB>(v))(a);
+        }
+
+        public static Func<Func<TA, TB>, TB> IfNotUnsafe<TA, TB>(this TA a, TA v)
+            where TA : struct
+        {
+            return Functions.Flip(Functions.IfNotUnsafe<TA, TB>(v))(a);
+        }
+
         #endregion
 
         #region Predicates

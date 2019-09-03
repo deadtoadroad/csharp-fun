@@ -12,6 +12,7 @@ namespace DeadToadRoad.Fun
         public abstract bool IsSome { get; }
         public abstract bool IsNone { get; }
 
+        public abstract Option<TA> Filter(Func<TA, bool> p);
         public abstract Option<TB> FlatMap<TB>(Func<TA, Option<TB>> f);
         public abstract TA GetOrElse(TA @else);
 

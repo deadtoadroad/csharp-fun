@@ -12,10 +12,22 @@ namespace DeadToadRoad.Fun.Extensions
             return Functions.Flip(Functions.IfN<TA, TB>(v))(a);
         }
 
-        public static Func<Func<TA?, TB>, Option<TB>> IfNotN<TA, TB>(this TA? a, TA v)
+        public static Func<Func<TA, TB>, Option<TB>> IfNotN<TA, TB>(this TA? a, TA v)
             where TA : struct
         {
             return Functions.Flip(Functions.IfNotN<TA, TB>(v))(a);
+        }
+
+        public static Func<Func<TA, TB>, TB> IfNUnsafe<TA, TB>(this TA? a, TA v)
+            where TA : struct
+        {
+            return Functions.Flip(Functions.IfNUnsafe<TA, TB>(v))(a);
+        }
+
+        public static Func<Func<TA, TB>, TB> IfNotNUnsafe<TA, TB>(this TA? a, TA v)
+            where TA : struct
+        {
+            return Functions.Flip(Functions.IfNotNUnsafe<TA, TB>(v))(a);
         }
 
         #endregion

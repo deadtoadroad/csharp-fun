@@ -9,14 +9,25 @@ namespace DeadToadRoad.Fun
         public static Func<Func<TA, TB>, Func<TA?, Option<TB>>> IfN<TA, TB>(TA v)
             where TA : struct
         {
-            // ReSharper disable once PossibleInvalidOperationException
-            return f => If<TA?, TB>(IsEqual<TA?>(v))(a => f(a.Value));
+            return f => a => AsOption(a).Filter(IsEqual(v)).Map(f);
         }
 
-        public static Func<Func<TA?, TB>, Func<TA?, Option<TB>>> IfNotN<TA, TB>(TA v)
+        public static Func<Func<TA, TB>, Func<TA?, Option<TB>>> IfNotN<TA, TB>(TA v)
             where TA : struct
         {
-            return If<TA?, TB>(IsNotEqual<TA?>(v));
+            return f => a => AsOption(a).Filter(IsNotEqual(v)).Map(f);
+        }
+
+        public static Func<Func<TA, TB>, Func<TA?, TB>> IfNUnsafe<TA, TB>(TA v)
+            where TA : struct
+        {
+            return f => a => IfN<TA, TB>(v)(f)(a).GetUnsafe();
+        }
+
+        public static Func<Func<TA, TB>, Func<TA?, TB>> IfNotNUnsafe<TA, TB>(TA v)
+            where TA : struct
+        {
+            return f => a => IfNotN<TA, TB>(v)(f)(a).GetUnsafe();
         }
 
         #endregion
@@ -26,15 +37,13 @@ namespace DeadToadRoad.Fun
         public static Func<Func<TB>, Func<TA?, TB>> BiMapN<TA, TB>(Func<TA, TB> f)
             where TA : struct
         {
-            // ReSharper disable once PossibleInvalidOperationException
-            return BiMap<TA?, TB>(a => f(a.Value));
+            return @null => a => AsOption(a).Map(f).GetOrElse(@null());
         }
 
         public static Func<TA?, TB> MapUnsafeN<TA, TB>(Func<TA, TB> f)
             where TA : struct
         {
-            // ReSharper disable once PossibleInvalidOperationException
-            return MapUnsafe<TA?, TB>(a => f(a.Value));
+            return a => AsOption(a).Map(f).GetUnsafe();
         }
 
         #endregion

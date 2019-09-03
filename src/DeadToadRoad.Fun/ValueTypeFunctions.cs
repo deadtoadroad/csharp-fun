@@ -18,6 +18,18 @@ namespace DeadToadRoad.Fun
             return If<TA, TB>(IsNotEqual(v));
         }
 
+        public static Func<Func<TA, TB>, Func<TA, TB>> IfUnsafe<TA, TB>(TA v)
+            where TA : struct
+        {
+            return f => a => If<TA, TB>(v)(f)(a).GetUnsafe();
+        }
+
+        public static Func<Func<TA, TB>, Func<TA, TB>> IfNotUnsafe<TA, TB>(TA v)
+            where TA : struct
+        {
+            return f => a => IfNot<TA, TB>(v)(f)(a).GetUnsafe();
+        }
+
         #endregion
 
         #region Predicates

@@ -25,6 +25,16 @@ namespace DeadToadRoad.Fun.Extensions
             return Functions.Flip(Functions.IfNot<TA, TB>(p))(a);
         }
 
+        public static Func<Func<TA, TB>, TB> IfUnsafe<TA, TB>(this TA a, Func<TA, bool> p)
+        {
+            return Functions.Flip(Functions.IfUnsafe<TA, TB>(p))(a);
+        }
+
+        public static Func<Func<TA, TB>, TB> IfNotUnsafe<TA, TB>(this TA a, Func<TA, bool> p)
+        {
+            return Functions.Flip(Functions.IfNotUnsafe<TA, TB>(p))(a);
+        }
+
         #endregion
 
         #region Map

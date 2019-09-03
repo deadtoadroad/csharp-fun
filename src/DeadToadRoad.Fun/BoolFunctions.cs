@@ -26,6 +26,26 @@ namespace DeadToadRoad.Fun
             return If<bool, TB>(IsFalse)(_ => f());
         }
 
+        public static Func<bool, TB> IfUnsafe<TB>(TB b)
+        {
+            return a => If(b)(a).GetUnsafe();
+        }
+
+        public static Func<bool, TB> IfNotUnsafe<TB>(TB b)
+        {
+            return a => IfNot(b)(a).GetUnsafe();
+        }
+
+        public static Func<bool, TB> IfUnsafe<TB>(Func<TB> f)
+        {
+            return a => If(f)(a).GetUnsafe();
+        }
+
+        public static Func<bool, TB> IfNotUnsafe<TB>(Func<TB> f)
+        {
+            return a => IfNot(f)(a).GetUnsafe();
+        }
+
         #endregion
 
         #region Predicates

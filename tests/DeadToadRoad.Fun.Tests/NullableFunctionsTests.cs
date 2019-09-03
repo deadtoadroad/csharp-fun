@@ -8,7 +8,6 @@ namespace DeadToadRoad.Fun.Tests
     {
         private const int DefaultExpected = 1;
         private static readonly Func<Enum1, int> DefaultMap = _ => DefaultExpected;
-        private static readonly Func<Enum1?, int> NullableDefaultMap = _ => DefaultExpected;
 
         private enum Enum1
         {
@@ -45,7 +44,7 @@ namespace DeadToadRoad.Fun.Tests
         [Fact]
         public void IfNotN_Value1WithValue1()
         {
-            var actual = IfNotN<Enum1, int>(Enum1.Value1)(NullableDefaultMap)(Enum1.Value1);
+            var actual = IfNotN<Enum1, int>(Enum1.Value1)(DefaultMap)(Enum1.Value1);
             Assert.True(actual.IsNone);
             Assert.Equal(default, actual.GetUnsafe());
         }
@@ -53,7 +52,7 @@ namespace DeadToadRoad.Fun.Tests
         [Fact]
         public void IfNotN_Value1WithValue2()
         {
-            var actual = IfNotN<Enum1, int>(Enum1.Value1)(NullableDefaultMap)(Enum1.Value2);
+            var actual = IfNotN<Enum1, int>(Enum1.Value1)(DefaultMap)(Enum1.Value2);
             Assert.True(actual.IsSome);
             Assert.Equal(DefaultExpected, actual.GetUnsafe());
         }
@@ -61,9 +60,9 @@ namespace DeadToadRoad.Fun.Tests
         [Fact]
         public void IfNotN_Value1WithNull()
         {
-            var actual = IfNotN<Enum1, int>(Enum1.Value1)(NullableDefaultMap)(null);
-            Assert.True(actual.IsSome);
-            Assert.Equal(DefaultExpected, actual.GetUnsafe());
+            var actual = IfNotN<Enum1, int>(Enum1.Value1)(DefaultMap)(null);
+            Assert.True(actual.IsNone);
+            Assert.Equal(default, actual.GetUnsafe());
         }
 
         #endregion

@@ -26,6 +26,26 @@ namespace DeadToadRoad.Fun.Extensions
             return Functions.IfNot(f)(a);
         }
 
+        public static TB IfUnsafe<TB>(this bool a, TB b)
+        {
+            return Functions.IfUnsafe(b)(a);
+        }
+
+        public static TB IfNotUnsafe<TB>(this bool a, TB b)
+        {
+            return Functions.IfNotUnsafe(b)(a);
+        }
+
+        public static TB IfUnsafe<TB>(this bool a, Func<TB> f)
+        {
+            return Functions.IfUnsafe(f)(a);
+        }
+
+        public static TB IfNotUnsafe<TB>(this bool a, Func<TB> f)
+        {
+            return Functions.IfNotUnsafe(f)(a);
+        }
+
         #endregion
 
         #region Predicates
