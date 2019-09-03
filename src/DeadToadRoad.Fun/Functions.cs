@@ -64,24 +64,24 @@ namespace DeadToadRoad.Fun
 
         #endregion
 
-        #region Flip
+        #region Rotate
 
-        public static Func<TB, Func<TA, TC>> Flip<TA, TB, TC>(Func<TA, Func<TB, TC>> f)
+        public static Func<TB, Func<TA, TC>> Rotate<TA, TB, TC>(Func<TA, Func<TB, TC>> f)
         {
             return b => a => f(a)(b);
         }
 
-        public static Func<TC, Func<TA, Func<TB, TD>>> Flip<TA, TB, TC, TD>(Func<TA, Func<TB, Func<TC, TD>>> f)
+        public static Func<TC, Func<TA, Func<TB, TD>>> Rotate<TA, TB, TC, TD>(Func<TA, Func<TB, Func<TC, TD>>> f)
         {
             return c => a => b => f(a)(b)(c);
         }
 
-        public static Func<TD, Func<TA, Func<TB, Func<TC, TE>>>> Flip<TA, TB, TC, TD, TE>(Func<TA, Func<TB, Func<TC, Func<TD, TE>>>> f)
+        public static Func<TD, Func<TA, Func<TB, Func<TC, TE>>>> Rotate<TA, TB, TC, TD, TE>(Func<TA, Func<TB, Func<TC, Func<TD, TE>>>> f)
         {
             return d => a => b => c => f(a)(b)(c)(d);
         }
 
-        public static Func<TE, Func<TA, Func<TB, Func<TC, Func<TD, TF>>>>> Flip<TA, TB, TC, TD, TE, TF>(Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>> f)
+        public static Func<TE, Func<TA, Func<TB, Func<TC, Func<TD, TF>>>>> Rotate<TA, TB, TC, TD, TE, TF>(Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>> f)
         {
             return e => a => b => c => d => f(a)(b)(c)(d)(e);
         }
@@ -167,7 +167,7 @@ namespace DeadToadRoad.Fun
 
         public static Func<TB, Func<TA, TC>> Reverse<TA, TB, TC>(Func<TA, Func<TB, TC>> f)
         {
-            return Flip(f);
+            return Rotate(f);
         }
 
         public static Func<TC, Func<TB, Func<TA, TD>>> Reverse<TA, TB, TC, TD>(Func<TA, Func<TB, Func<TC, TD>>> f)

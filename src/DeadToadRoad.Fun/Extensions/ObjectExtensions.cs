@@ -17,22 +17,22 @@ namespace DeadToadRoad.Fun.Extensions
 
         public static Func<Func<TA, TB>, Option<TB>> If<TA, TB>(this TA a, Func<TA, bool> p)
         {
-            return Functions.Flip(Functions.If<TA, TB>(p))(a);
+            return Functions.Rotate(Functions.If<TA, TB>(p))(a);
         }
 
         public static Func<Func<TA, TB>, Option<TB>> IfNot<TA, TB>(this TA a, Func<TA, bool> p)
         {
-            return Functions.Flip(Functions.IfNot<TA, TB>(p))(a);
+            return Functions.Rotate(Functions.IfNot<TA, TB>(p))(a);
         }
 
         public static Func<Func<TA, TB>, TB> IfUnsafe<TA, TB>(this TA a, Func<TA, bool> p)
         {
-            return Functions.Flip(Functions.IfUnsafe<TA, TB>(p))(a);
+            return Functions.Rotate(Functions.IfUnsafe<TA, TB>(p))(a);
         }
 
         public static Func<Func<TA, TB>, TB> IfNotUnsafe<TA, TB>(this TA a, Func<TA, bool> p)
         {
-            return Functions.Flip(Functions.IfNotUnsafe<TA, TB>(p))(a);
+            return Functions.Rotate(Functions.IfNotUnsafe<TA, TB>(p))(a);
         }
 
         #endregion
@@ -41,7 +41,7 @@ namespace DeadToadRoad.Fun.Extensions
 
         public static Func<Func<TB>, TB> BiMap<TA, TB>(this TA a, Func<TA, TB> f)
         {
-            return Functions.Flip(Functions.BiMap(f))(a);
+            return Functions.Rotate(Functions.BiMap(f))(a);
         }
 
         public static TB MapUnsafe<TA, TB>(this TA a, Func<TA, TB> f)
@@ -55,7 +55,7 @@ namespace DeadToadRoad.Fun.Extensions
 
         public static Func<Func<TA, TB>, TB> Match<TA, TB>(this TA a, params Func<TA, Option<TB>>[] ifs)
         {
-            return Functions.Flip(Functions.Match(ifs))(a);
+            return Functions.Rotate(Functions.Match(ifs))(a);
         }
 
         public static TB MatchUnsafe<TA, TB>(this TA a, params Func<TA, Option<TB>>[] ifs)

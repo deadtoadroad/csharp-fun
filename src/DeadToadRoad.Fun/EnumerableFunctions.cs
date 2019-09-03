@@ -16,7 +16,7 @@ namespace DeadToadRoad.Fun
 
         public static Func<IEnumerable<TA>, IEnumerable<TA>> PrependRange<TA>(IEnumerable<TA> range)
         {
-            return Flip<IEnumerable<TA>, IEnumerable<TA>, IEnumerable<TA>>(AppendRange)(range);
+            return Reverse<IEnumerable<TA>, IEnumerable<TA>, IEnumerable<TA>>(AppendRange)(range);
         }
 
         #endregion

@@ -9,25 +9,25 @@ namespace DeadToadRoad.Fun.Extensions
         public static Func<Func<TA, TB>, Option<TB>> IfN<TA, TB>(this TA? a, TA v)
             where TA : struct
         {
-            return Functions.Flip(Functions.IfN<TA, TB>(v))(a);
+            return Functions.Rotate(Functions.IfN<TA, TB>(v))(a);
         }
 
         public static Func<Func<TA, TB>, Option<TB>> IfNotN<TA, TB>(this TA? a, TA v)
             where TA : struct
         {
-            return Functions.Flip(Functions.IfNotN<TA, TB>(v))(a);
+            return Functions.Rotate(Functions.IfNotN<TA, TB>(v))(a);
         }
 
         public static Func<Func<TA, TB>, TB> IfNUnsafe<TA, TB>(this TA? a, TA v)
             where TA : struct
         {
-            return Functions.Flip(Functions.IfNUnsafe<TA, TB>(v))(a);
+            return Functions.Rotate(Functions.IfNUnsafe<TA, TB>(v))(a);
         }
 
         public static Func<Func<TA, TB>, TB> IfNotNUnsafe<TA, TB>(this TA? a, TA v)
             where TA : struct
         {
-            return Functions.Flip(Functions.IfNotNUnsafe<TA, TB>(v))(a);
+            return Functions.Rotate(Functions.IfNotNUnsafe<TA, TB>(v))(a);
         }
 
         #endregion
@@ -37,7 +37,7 @@ namespace DeadToadRoad.Fun.Extensions
         public static Func<Func<TB>, TB> BiMapN<TA, TB>(this TA? a, Func<TA, TB> f)
             where TA : struct
         {
-            return Functions.Flip(Functions.BiMapN(f))(a);
+            return Functions.Rotate(Functions.BiMapN(f))(a);
         }
 
         public static TB MapUnsafeN<TA, TB>(this TA? a, Func<TA, TB> f)
