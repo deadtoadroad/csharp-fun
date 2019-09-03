@@ -64,30 +64,6 @@ namespace DeadToadRoad.Fun
 
         #endregion
 
-        #region Rotate
-
-        public static Func<TB, Func<TA, TC>> Rotate<TA, TB, TC>(Func<TA, Func<TB, TC>> f)
-        {
-            return b => a => f(a)(b);
-        }
-
-        public static Func<TC, Func<TA, Func<TB, TD>>> Rotate<TA, TB, TC, TD>(Func<TA, Func<TB, Func<TC, TD>>> f)
-        {
-            return c => a => b => f(a)(b)(c);
-        }
-
-        public static Func<TD, Func<TA, Func<TB, Func<TC, TE>>>> Rotate<TA, TB, TC, TD, TE>(Func<TA, Func<TB, Func<TC, Func<TD, TE>>>> f)
-        {
-            return d => a => b => c => f(a)(b)(c)(d);
-        }
-
-        public static Func<TE, Func<TA, Func<TB, Func<TC, Func<TD, TF>>>>> Rotate<TA, TB, TC, TD, TE, TF>(Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>> f)
-        {
-            return e => a => b => c => d => f(a)(b)(c)(d)(e);
-        }
-
-        #endregion
-
         #region Flow
 
         public static Func<Func<TB, TC>, Func<TA, TC>> Flow2<TA, TB, TC>(Func<TA, TB> fab)
@@ -183,6 +159,30 @@ namespace DeadToadRoad.Fun
         public static Func<TE, Func<TD, Func<TC, Func<TB, Func<TA, TF>>>>> Reverse<TA, TB, TC, TD, TE, TF>(Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>> f)
         {
             return e => d => c => b => a => f(a)(b)(c)(d)(e);
+        }
+
+        #endregion
+
+        #region Rotate
+
+        public static Func<TB, Func<TA, TC>> Rotate<TA, TB, TC>(Func<TA, Func<TB, TC>> f)
+        {
+            return b => a => f(a)(b);
+        }
+
+        public static Func<TC, Func<TA, Func<TB, TD>>> Rotate<TA, TB, TC, TD>(Func<TA, Func<TB, Func<TC, TD>>> f)
+        {
+            return c => a => b => f(a)(b)(c);
+        }
+
+        public static Func<TD, Func<TA, Func<TB, Func<TC, TE>>>> Rotate<TA, TB, TC, TD, TE>(Func<TA, Func<TB, Func<TC, Func<TD, TE>>>> f)
+        {
+            return d => a => b => c => f(a)(b)(c)(d);
+        }
+
+        public static Func<TE, Func<TA, Func<TB, Func<TC, Func<TD, TF>>>>> Rotate<TA, TB, TC, TD, TE, TF>(Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>> f)
+        {
+            return e => a => b => c => d => f(a)(b)(c)(d)(e);
         }
 
         #endregion
