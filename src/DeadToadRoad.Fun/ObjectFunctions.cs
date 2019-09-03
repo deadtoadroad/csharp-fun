@@ -41,7 +41,7 @@ namespace DeadToadRoad.Fun
 
         public static Func<Func<TB>, Func<TA, TB>> BiMap<TA, TB>(Func<TA, TB> f)
         {
-            return @null => a => AsOption(a).Map(f).GetOrElse(@null());
+            return @else => a => AsOption(a).Map(f).GetOrElse(@else());
         }
 
         public static Func<TA, TB> MapUnsafe<TA, TB>(Func<TA, TB> f)
@@ -55,7 +55,7 @@ namespace DeadToadRoad.Fun
 
         public static Func<Func<TA, TB>, Func<TA, TB>> Match<TA, TB>(params Func<TA, Option<TB>>[] ifs)
         {
-            return otherwise => a => {
+            return @else => a => {
                 foreach (var @if in ifs)
                 {
                     var result = @if(a);
@@ -64,7 +64,7 @@ namespace DeadToadRoad.Fun
                         return result.GetUnsafe();
                 }
 
-                return otherwise(a);
+                return @else(a);
             };
         }
 
