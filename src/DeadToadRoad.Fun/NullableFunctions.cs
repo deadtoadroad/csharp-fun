@@ -37,7 +37,7 @@ namespace DeadToadRoad.Fun
         public static Func<Func<TB>, Func<TA?, TB>> BiMapN<TA, TB>(Func<TA, TB> f)
             where TA : struct
         {
-            return @else => a => AsOption(a).Map(f).GetOrElse(@else());
+            return @else => a => AsOption(a).Map(f).GetOrElse(@else);
         }
 
         public static Func<TA?, TB> MapUnsafeN<TA, TB>(Func<TA, TB> f)

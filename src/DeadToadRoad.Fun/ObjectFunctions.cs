@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace DeadToadRoad.Fun
 {
@@ -41,7 +42,7 @@ namespace DeadToadRoad.Fun
 
         public static Func<Func<TB>, Func<TA, TB>> BiMap<TA, TB>(Func<TA, TB> f)
         {
-            return @else => a => AsOption(a).Map(f).GetOrElse(@else());
+            return @else => a => AsOption(a).Map(f).GetOrElse(@else);
         }
 
         public static Func<TA, TB> MapUnsafe<TA, TB>(Func<TA, TB> f)
@@ -55,17 +56,12 @@ namespace DeadToadRoad.Fun
 
         public static Func<Func<TA, TB>, Func<TA, TB>> Match<TA, TB>(params Func<TA, Option<TB>>[] ifs)
         {
-            return @else => a => {
-                foreach (var @if in ifs)
-                {
-                    var result = @if(a);
-
-                    if (result.IsSome)
-                        return result.GetUnsafe();
-                }
-
-                return @else(a);
-            };
+            return @else => a => (
+                    ifs
+                        .Select(@if => @if(a))
+                        .FirstOrDefault(r => r.IsSome) ?? None<TB>()
+                )
+                .GetOrElse(() => @else(a));
         }
 
         public static Func<TA, TB> MatchUnsafe<TA, TB>(params Func<TA, Option<TB>>[] ifs)
