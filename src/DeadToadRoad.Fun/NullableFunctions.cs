@@ -6,44 +6,16 @@ namespace DeadToadRoad.Fun
     {
         #region If
 
-        public static Func<Func<TA, TB>, Func<TA?, Option<TB>>> IfN<TA, TB>(TA v)
+        public static Func<Func<TA?, TB>, Func<TA?, TB>> IfN<TA, TB>(TA? v)
             where TA : struct
         {
-            return f => a => AsOption(a).Filter(IsEqual(v)).Map(f);
+            return If<TA?, TB>(IsEqual(v));
         }
 
-        public static Func<Func<TA, TB>, Func<TA?, Option<TB>>> IfNotN<TA, TB>(TA v)
+        public static Func<Func<TA?, TB>, Func<TA?, TB>> IfNotN<TA, TB>(TA? v)
             where TA : struct
         {
-            return f => a => AsOption(a).Filter(IsNotEqual(v)).Map(f);
-        }
-
-        public static Func<Func<TA, TB>, Func<TA?, TB>> IfNUnsafe<TA, TB>(TA v)
-            where TA : struct
-        {
-            return f => a => IfN<TA, TB>(v)(f)(a).GetUnsafe();
-        }
-
-        public static Func<Func<TA, TB>, Func<TA?, TB>> IfNotNUnsafe<TA, TB>(TA v)
-            where TA : struct
-        {
-            return f => a => IfNotN<TA, TB>(v)(f)(a).GetUnsafe();
-        }
-
-        #endregion
-
-        #region Map
-
-        public static Func<Func<TB>, Func<TA?, TB>> BiMapN<TA, TB>(Func<TA, TB> f)
-            where TA : struct
-        {
-            return @else => a => AsOption(a).Map(f).GetOrElse(@else);
-        }
-
-        public static Func<TA?, TB> MapUnsafeN<TA, TB>(Func<TA, TB> f)
-            where TA : struct
-        {
-            return a => AsOption(a).Map(f).GetUnsafe();
+            return If<TA?, TB>(IsNotEqual(v));
         }
 
         #endregion

@@ -16,57 +16,37 @@ namespace DeadToadRoad.Fun
 
         #region If
 
-        public static Func<Func<TA, TB>, Func<TA, Option<TB>>> If<TA, TB>(Func<TA, bool> p)
+        public static Func<Func<TA, TB>, Func<TA, TB>> If<TA, TB>(Func<TA, bool> p)
         {
-            return f => a => AsOption(a).Filter(p).Map(f);
-        }
-
-        public static Func<Func<TA, TB>, Func<TA, Option<TB>>> IfNot<TA, TB>(Func<TA, bool> p)
-        {
-            return If<TA, TB>(Not(p));
-        }
-
-        public static Func<Func<TA, TB>, Func<TA, TB>> IfUnsafe<TA, TB>(Func<TA, bool> p)
-        {
-            return f => a => If<TA, TB>(p)(f)(a).GetUnsafe();
-        }
-
-        public static Func<Func<TA, TB>, Func<TA, TB>> IfNotUnsafe<TA, TB>(Func<TA, bool> p)
-        {
-            return f => a => IfNot<TA, TB>(p)(f)(a).GetUnsafe();
+            return f => a => p(a) ? f(a) : default;
         }
 
         #endregion
 
         #region Map
 
-        public static Func<Func<TB>, Func<TA, TB>> BiMap<TA, TB>(Func<TA, TB> f)
+        public static Func<TA, TB> Map<TA, TB>(Func<TA, TB> f)
         {
-            return @else => a => AsOption(a).Map(f).GetOrElse(@else);
-        }
-
-        public static Func<TA, TB> MapUnsafe<TA, TB>(Func<TA, TB> f)
-        {
-            return a => AsOption(a).Map(f).GetUnsafe();
+            return f;
         }
 
         #endregion
 
         #region Match
 
-        public static Func<Func<TA, TB>, Func<TA, TB>> Match<TA, TB>(params Func<TA, Option<TB>>[] ifs)
+        public static Func<Func<TA, TB>, Func<TA, TB>> Match<TA, TB>(params Func<TA, Option<TB>>[] fs)
         {
             return @else => a => (
-                    ifs
-                        .Select(@if => @if(a))
-                        .FirstOrDefault(r => r.IsSome) ?? None<TB>()
+                    fs
+                        .Select(f => f(a))
+                        .FirstOrDefault(OptionMembers.IsSome) ?? None<TB>()
                 )
                 .GetOrElse(() => @else(a));
         }
 
-        public static Func<TA, TB> MatchUnsafe<TA, TB>(params Func<TA, Option<TB>>[] ifs)
+        public static Func<TA, TB> MatchUnsafe<TA, TB>(params Func<TA, Option<TB>>[] fs)
         {
-            return Match(ifs)(_ => default);
+            return Match(fs)(_ => default);
         }
 
         #endregion

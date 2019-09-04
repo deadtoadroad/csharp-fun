@@ -21,32 +21,28 @@ namespace DeadToadRoad.Fun.Tests
         public void If_Value1WithValue1()
         {
             var actual = If<Enum1, int>(Enum1.Value1)(DefaultMap)(Enum1.Value1);
-            Assert.True(actual.IsSome);
-            Assert.Equal(DefaultExpected, actual.GetUnsafe());
+            Assert.Equal(DefaultExpected, actual);
         }
 
         [Fact]
         public void If_Value1WithValue2()
         {
             var actual = If<Enum1, int>(Enum1.Value1)(DefaultMap)(Enum1.Value2);
-            Assert.True(actual.IsNone);
-            Assert.Equal(default, actual.GetUnsafe());
+            Assert.Equal(default, actual);
         }
 
         [Fact]
         public void IfNot_Value1WithValue1()
         {
             var actual = IfNot<Enum1, int>(Enum1.Value1)(DefaultMap)(Enum1.Value1);
-            Assert.True(actual.IsNone);
-            Assert.Equal(default, actual.GetUnsafe());
+            Assert.Equal(default, actual);
         }
 
         [Fact]
         public void IfNot_Value1WithValue2()
         {
             var actual = IfNot<Enum1, int>(Enum1.Value1)(DefaultMap)(Enum1.Value2);
-            Assert.True(actual.IsSome);
-            Assert.Equal(DefaultExpected, actual.GetUnsafe());
+            Assert.Equal(DefaultExpected, actual);
         }
 
         #endregion

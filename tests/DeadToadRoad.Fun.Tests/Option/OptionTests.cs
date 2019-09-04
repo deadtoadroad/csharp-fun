@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 using static DeadToadRoad.Fun.Functions;
 
@@ -7,35 +6,44 @@ namespace DeadToadRoad.Fun.Tests
     public class OptionTests
     {
         private const int DefaultExpected = 1;
-        private static readonly Func<string, int> DefaultMap = _ => DefaultExpected;
 
         #region FlatMap
 
         [Fact]
-        public void FlatMap_SomeIfTrue()
+        public void FlatMap_SomeSome()
         {
             var actual = Some("wut")
-                .FlatMap(If<string, int>(IsNotEmpty)(DefaultMap));
+                .FlatMap(_ => Some(DefaultExpected));
 
             Assert.True(actual.IsSome);
             Assert.Equal(DefaultExpected, actual.GetUnsafe());
         }
 
         [Fact]
-        public void FlatMap_SomeIfFalse()
+        public void FlatMap_SomeNone()
         {
-            var actual = Some(string.Empty)
-                .FlatMap(If<string, int>(IsNotEmpty)(DefaultMap));
+            var actual = Some("wut")
+                .FlatMap(_ => None<int>());
 
             Assert.True(actual.IsNone);
             Assert.Equal(default, actual.GetUnsafe());
         }
 
         [Fact]
-        public void FlatMap_NoneIf()
+        public void FlatMap_NoneSome()
         {
             var actual = None<string>()
-                .FlatMap(If<string, int>(IsNotEmpty)(DefaultMap));
+                .FlatMap(_ => Some(DefaultExpected));
+
+            Assert.True(actual.IsNone);
+            Assert.Equal(default, actual.GetUnsafe());
+        }
+
+        [Fact]
+        public void FlatMap_NoneNone()
+        {
+            var actual = None<string>()
+                .FlatMap(_ => None<int>());
 
             Assert.True(actual.IsNone);
             Assert.Equal(default, actual.GetUnsafe());
