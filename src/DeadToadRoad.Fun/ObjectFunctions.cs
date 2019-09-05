@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using DeadToadRoad.Fun.Extensions;
 
 namespace DeadToadRoad.Fun
 {
@@ -36,11 +37,11 @@ namespace DeadToadRoad.Fun
 
         public static Func<Func<TA, TB>, Func<TA, TB>> Match<TA, TB>(params Func<TA, Option<TB>>[] fs)
         {
-            return @else => a => (
-                    fs
-                        .Select(f => f(a))
-                        .FirstOrDefault(OptionMembers.IsSome) ?? None<TB>()
-                )
+            return @else => a => fs
+                .Select(f => f(a))
+                .FirstOrDefault(OptionMembers.IsSome)
+                .AsOption()
+                .Flatten()
                 .GetOrElse(() => @else(a));
         }
 
