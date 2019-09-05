@@ -24,12 +24,7 @@ namespace DeadToadRoad.Fun.Extensions
 
         #endregion
 
-        #region AppendRange
-
-        public static IEnumerable<TA> AppendRange<TA>(this IEnumerable<TA> @as, IEnumerable<TA> range)
-        {
-            return Functions.AppendRange(range)(@as);
-        }
+        #region PrependRange
 
         public static IEnumerable<TA> PrependRange<TA>(this IEnumerable<TA> @as, IEnumerable<TA> range)
         {
