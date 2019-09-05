@@ -6,16 +6,28 @@ namespace DeadToadRoad.Fun
     {
         #region If
 
-        public static Func<Func<TA?, TB>, Func<TA?, TB>> IfN<TA, TB>(TA? v)
+        public static Func<Func<TA?, TB>, Func<TA?, Option<TB>>> IfN<TA, TB>(TA? v)
             where TA : struct
         {
             return If<TA?, TB>(IsEqual(v));
         }
 
-        public static Func<Func<TA?, TB>, Func<TA?, TB>> IfNotN<TA, TB>(TA? v)
+        public static Func<Func<TA?, TB>, Func<TA?, Option<TB>>> IfNotN<TA, TB>(TA? v)
             where TA : struct
         {
             return If<TA?, TB>(IsNotEqual(v));
+        }
+
+        public static Func<Func<TA?, TB>, Func<TA?, TB>> IfNUnsafe<TA, TB>(TA? v)
+            where TA : struct
+        {
+            return f => Flow2<TA?, Option<TB>, TB>(IfN<TA, TB>(v)(f))(OptionMembers.GetUnsafe);
+        }
+
+        public static Func<Func<TA?, TB>, Func<TA?, TB>> IfNotNUnsafe<TA, TB>(TA? v)
+            where TA : struct
+        {
+            return f => Flow2<TA?, Option<TB>, TB>(IfNotN<TA, TB>(v)(f))(OptionMembers.GetUnsafe);
         }
 
         #endregion

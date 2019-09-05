@@ -21,70 +21,80 @@ namespace DeadToadRoad.Fun.Tests
         public void IfN_Value1WithValue1()
         {
             var actual = IfN<Enum1, int>(Enum1.Value1)(DefaultMap)(Enum1.Value1);
-            Assert.Equal(DefaultExpected, actual);
+            Assert.True(actual.IsSome);
+            Assert.Equal(DefaultExpected, actual.GetUnsafe());
         }
 
         [Fact]
         public void IfN_Value1WithValue2()
         {
             var actual = IfN<Enum1, int>(Enum1.Value1)(DefaultMap)(Enum1.Value2);
-            Assert.Equal(default, actual);
+            Assert.True(actual.IsNone);
+            Assert.Equal(default, actual.GetUnsafe());
         }
 
         [Fact]
         public void IfN_Value1WithNull()
         {
             var actual = IfN<Enum1, int>(Enum1.Value1)(DefaultMap)(null);
-            Assert.Equal(default, actual);
+            Assert.True(actual.IsNone);
+            Assert.Equal(default, actual.GetUnsafe());
         }
 
         [Fact]
-        public void IfN_Null1WithValue1()
+        public void IfN_NullWithValue1()
         {
             var actual = IfN<Enum1, int>(null)(DefaultMap)(Enum1.Value1);
-            Assert.Equal(default, actual);
+            Assert.True(actual.IsNone);
+            Assert.Equal(default, actual.GetUnsafe());
         }
 
         [Fact]
         public void IfN_NullWithNull()
         {
             var actual = IfN<Enum1, int>(null)(DefaultMap)(null);
-            Assert.Equal(DefaultExpected, actual);
+            Assert.True(actual.IsSome);
+            Assert.Equal(DefaultExpected, actual.GetUnsafe());
         }
 
         [Fact]
         public void IfNotN_Value1WithValue1()
         {
             var actual = IfNotN<Enum1, int>(Enum1.Value1)(DefaultMap)(Enum1.Value1);
-            Assert.Equal(default, actual);
+            Assert.True(actual.IsNone);
+            Assert.Equal(default, actual.GetUnsafe());
         }
 
         [Fact]
         public void IfNotN_Value1WithValue2()
         {
             var actual = IfNotN<Enum1, int>(Enum1.Value1)(DefaultMap)(Enum1.Value2);
-            Assert.Equal(DefaultExpected, actual);
+            Assert.True(actual.IsSome);
+            Assert.Equal(DefaultExpected, actual.GetUnsafe());
         }
 
         [Fact]
         public void IfNotN_Value1WithNull()
         {
             var actual = IfNotN<Enum1, int>(Enum1.Value1)(DefaultMap)(null);
-            Assert.Equal(DefaultExpected, actual);
+            Assert.True(actual.IsSome);
+            Assert.Equal(DefaultExpected, actual.GetUnsafe());
         }
 
         [Fact]
-        public void IfNotN_Null1WithValue1()
+        public void IfNotN_NullWithValue1()
         {
             var actual = IfNotN<Enum1, int>(null)(DefaultMap)(Enum1.Value1);
-            Assert.Equal(DefaultExpected, actual);
+            Assert.True(actual.IsSome);
+            Assert.Equal(DefaultExpected, actual.GetUnsafe());
         }
 
         [Fact]
         public void IfNotN_NullWithNull()
         {
             var actual = IfNotN<Enum1, int>(null)(DefaultMap)(null);
-            Assert.Equal(default, actual);
+            Assert.True(actual.IsNone);
+            Assert.Equal(default, actual.GetUnsafe());
         }
 
         #endregion

@@ -15,15 +15,6 @@ namespace DeadToadRoad.Fun
 
         #endregion
 
-        #region If
-
-        public static Func<Func<TA, TB>, Func<TA, TB>> If<TA, TB>(Func<TA, bool> p)
-        {
-            return f => a => p(a) ? f(a) : default;
-        }
-
-        #endregion
-
         #region Map
 
         public static Func<TA, TB> Map<TA, TB>(Func<TA, TB> f)
@@ -33,21 +24,35 @@ namespace DeadToadRoad.Fun
 
         #endregion
 
+        #region If
+
+        public static Func<Func<TA, TB>, Func<TA, Option<TB>>> If<TA, TB>(Func<TA, bool> p)
+        {
+            return f => a => p(a) ? Some(f(a)) : None<TB>();
+        }
+
+        public static Func<Func<TA, TB>, Func<TA, TB>> IfUnsafe<TA, TB>(Func<TA, bool> p)
+        {
+            return f => Flow2<TA, Option<TB>, TB>(If<TA, TB>(p)(f))(OptionMembers.GetUnsafe);
+        }
+
+        #endregion
+
         #region Match
 
-        public static Func<Func<TA, TB>, Func<TA, TB>> Match<TA, TB>(params Func<TA, Option<TB>>[] fs)
+        public static Func<Func<TA, TB>, Func<TA, TB>> Match<TA, TB>(params Func<TA, Option<TB>>[] ifs)
         {
-            return @else => a => fs
-                .Select(f => f(a))
+            return @else => a => ifs
+                .Select(@if => @if(a))
                 .FirstOrDefault(OptionMembers.IsSome)
                 .AsOption()
                 .Flatten()
                 .GetOrElse(() => @else(a));
         }
 
-        public static Func<TA, TB> MatchUnsafe<TA, TB>(params Func<TA, Option<TB>>[] fs)
+        public static Func<TA, TB> MatchUnsafe<TA, TB>(params Func<TA, Option<TB>>[] ifs)
         {
-            return Match(fs)(_ => default);
+            return Match(ifs)(_ => default);
         }
 
         #endregion

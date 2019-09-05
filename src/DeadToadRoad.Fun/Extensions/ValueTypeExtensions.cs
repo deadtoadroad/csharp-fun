@@ -6,16 +6,28 @@ namespace DeadToadRoad.Fun.Extensions
     {
         #region If
 
-        public static Func<Func<TA, TB>, TB> If<TA, TB>(this TA a, TA v)
+        public static Func<Func<TA, TB>, Option<TB>> If<TA, TB>(this TA a, TA v)
             where TA : struct
         {
             return Functions.Rotate(Functions.If<TA, TB>(v))(a);
         }
 
-        public static Func<Func<TA, TB>, TB> IfNot<TA, TB>(this TA a, TA v)
+        public static Func<Func<TA, TB>, Option<TB>> IfNot<TA, TB>(this TA a, TA v)
             where TA : struct
         {
             return Functions.Rotate(Functions.IfNot<TA, TB>(v))(a);
+        }
+
+        public static Func<Func<TA, TB>, TB> IfUnsafe<TA, TB>(this TA a, TA v)
+            where TA : struct
+        {
+            return Functions.Rotate(Functions.IfUnsafe<TA, TB>(v))(a);
+        }
+
+        public static Func<Func<TA, TB>, TB> IfNotUnsafe<TA, TB>(this TA a, TA v)
+            where TA : struct
+        {
+            return Functions.Rotate(Functions.IfNotUnsafe<TA, TB>(v))(a);
         }
 
         #endregion

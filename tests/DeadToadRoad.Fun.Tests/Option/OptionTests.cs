@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 using static DeadToadRoad.Fun.Functions;
 
@@ -6,6 +7,7 @@ namespace DeadToadRoad.Fun.Tests
     public class OptionTests
     {
         private const int DefaultExpected = 1;
+        private static readonly Func<string, Option<int>> DefaultMap = _ => Some(DefaultExpected);
 
         #region FlatMap
 
@@ -13,7 +15,7 @@ namespace DeadToadRoad.Fun.Tests
         public void FlatMap_SomeSome()
         {
             var actual = Some("wut")
-                .FlatMap(_ => Some(DefaultExpected));
+                .FlatMap(DefaultMap);
 
             Assert.True(actual.IsSome);
             Assert.Equal(DefaultExpected, actual.GetUnsafe());
@@ -22,7 +24,7 @@ namespace DeadToadRoad.Fun.Tests
         [Fact]
         public void FlatMap_SomeNone()
         {
-            var actual = Some("wut")
+            var actual = Some(string.Empty)
                 .FlatMap(_ => None<int>());
 
             Assert.True(actual.IsNone);
@@ -33,7 +35,7 @@ namespace DeadToadRoad.Fun.Tests
         public void FlatMap_NoneSome()
         {
             var actual = None<string>()
-                .FlatMap(_ => Some(DefaultExpected));
+                .FlatMap(DefaultMap);
 
             Assert.True(actual.IsNone);
             Assert.Equal(default, actual.GetUnsafe());
