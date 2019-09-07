@@ -36,7 +36,7 @@ namespace DeadToadRoad.Fun
 
         public static bool IsWhiteSpace(string a)
         {
-            return AsOption(a)
+            return OptionFunctions.ToOption(a)
                 .Map(EnumerableMembers.Cast<char>)
                 .Map(EnumerableMembers.All<char>(char.IsWhiteSpace))
                 .GetOrElse(false);

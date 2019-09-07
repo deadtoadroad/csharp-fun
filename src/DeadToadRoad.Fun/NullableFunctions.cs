@@ -44,10 +44,16 @@ namespace DeadToadRoad.Fun
             return Not<TA>(IsNullable)(a);
         }
 
+        public static bool HasValue<TA>(TA? a)
+            where TA : struct
+        {
+            return a.HasValue;
+        }
+
         public static bool HasNotValue<TA>(TA? a)
             where TA : struct
         {
-            return Not<TA?>(NullableMembers.HasValue)(a);
+            return Not<TA?>(HasValue)(a);
         }
 
         #endregion

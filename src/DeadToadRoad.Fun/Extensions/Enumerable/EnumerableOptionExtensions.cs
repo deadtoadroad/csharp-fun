@@ -4,11 +4,11 @@ namespace DeadToadRoad.Fun.Extensions
 {
     public static class EnumerableOptionExtensions
     {
-        #region Flatten
+        #region Members
 
         public static IEnumerable<TA> Flatten<TA>(this IEnumerable<Option<TA>> @as)
         {
-            return Functions.Flatten(@as);
+            return EnumerableMembers.Flatten(@as);
         }
 
         #endregion

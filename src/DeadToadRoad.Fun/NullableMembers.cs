@@ -2,14 +2,11 @@ namespace DeadToadRoad.Fun
 {
     public static class NullableMembers
     {
-        #region Predicates
-
-        public static bool HasValue<TA>(TA? a)
+        public static TA Value<TA>(TA? a)
             where TA : struct
         {
-            return a.HasValue;
+            // ReSharper disable once PossibleInvalidOperationException
+            return a.Value;
         }
-
-        #endregion
     }
 }

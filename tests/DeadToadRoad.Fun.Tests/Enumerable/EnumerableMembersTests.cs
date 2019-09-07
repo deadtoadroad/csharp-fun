@@ -1,10 +1,10 @@
 using System;
 using Xunit;
-using static DeadToadRoad.Fun.Functions;
+using static DeadToadRoad.Fun.EnumerableMembers;
 
 namespace DeadToadRoad.Fun.Tests
 {
-    public class EnumerableFunctionsTests
+    public class EnumerableMembersTests
     {
         private readonly int[] _defaultRange = {2};
         private readonly int[] _defaultAs = {1};

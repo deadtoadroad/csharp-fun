@@ -19,7 +19,7 @@ namespace DeadToadRoad.Fun
 
         public override Option<TB> FlatMap<TB>(Func<TA, Option<TB>> f)
         {
-            return Functions.None<TB>();
+            return OptionFunctions.None<TB>();
         }
 
         public override TA GetOrElse(Func<TA> @else)
@@ -29,7 +29,7 @@ namespace DeadToadRoad.Fun
 
         public override Option<TB> Map<TB>(Func<TA, TB> f)
         {
-            return Functions.None<TB>();
+            return OptionFunctions.None<TB>();
         }
 
         public override TA[] ToArray()

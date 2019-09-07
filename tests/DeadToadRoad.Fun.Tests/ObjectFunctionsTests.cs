@@ -2,6 +2,7 @@ using System;
 using Xbehave;
 using Xunit;
 using static DeadToadRoad.Fun.Functions;
+using static DeadToadRoad.Fun.OptionFunctions;
 
 namespace DeadToadRoad.Fun.Tests
 {

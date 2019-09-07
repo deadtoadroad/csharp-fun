@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DeadToadRoad.Fun
 {
-    public static class OptionMembers
+    public static partial class OptionMembers
     {
         public static bool IsSome<TA>(Option<TA> a)
         {

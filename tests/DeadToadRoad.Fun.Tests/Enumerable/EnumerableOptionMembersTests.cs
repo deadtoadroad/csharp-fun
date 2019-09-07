@@ -1,9 +1,10 @@
 using Xunit;
-using static DeadToadRoad.Fun.Functions;
+using static DeadToadRoad.Fun.EnumerableMembers;
+using static DeadToadRoad.Fun.OptionFunctions;
 
 namespace DeadToadRoad.Fun.Tests
 {
-    public class EnumerableOptionFunctionsTests
+    public class EnumerableOptionMembersTests
     {
         #region Flatten
 

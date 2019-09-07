@@ -28,7 +28,7 @@ namespace DeadToadRoad.Fun
 
         public static Func<Func<TA, TB>, Func<TA, Option<TB>>> If<TA, TB>(Func<TA, bool> p)
         {
-            return f => a => p(a) ? Some(f(a)) : None<TB>();
+            return f => a => p(a) ? OptionFunctions.Some(f(a)) : OptionFunctions.None<TB>();
         }
 
         public static Func<Func<TA, TB>, Func<TA, TB>> IfUnsafe<TA, TB>(Func<TA, bool> p)
@@ -45,7 +45,7 @@ namespace DeadToadRoad.Fun
             return @else => a => ifs
                 .Select(Apply<TA, Option<TB>>(a))
                 .FirstOrDefault(OptionMembers.IsSome)
-                .AsOption()
+                .ToOption()
                 .Flatten()
                 .GetOrElse(() => @else(a));
         }

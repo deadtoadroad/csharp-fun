@@ -1,20 +1,8 @@
 namespace DeadToadRoad.Fun
 {
-    public static partial class Functions
+    public static class OptionFunctions
     {
         #region Factories
-
-        public static Option<TA> AsOption<TA>(TA? a)
-            where TA : struct
-        {
-            // ReSharper disable once PossibleInvalidOperationException
-            return If<TA?, TA>(NullableMembers.HasValue)(a1 => a1.Value)(a);
-        }
-
-        public static Option<TA> AsOption<TA>(TA a)
-        {
-            return If<TA, TA>(IsNotNull)(Identity)(a);
-        }
 
         public static Option<TA> Some<TA>(TA a)
         {
@@ -24,6 +12,17 @@ namespace DeadToadRoad.Fun
         public static Option<TA> None<TA>()
         {
             return Option<TA>.None;
+        }
+
+        public static Option<TA> ToOption<TA>(TA? a)
+            where TA : struct
+        {
+            return Functions.If<TA?, TA>(Functions.HasValue)(NullableMembers.Value)(a);
+        }
+
+        public static Option<TA> ToOption<TA>(TA a)
+        {
+            return Functions.If<TA, TA>(Functions.IsNotNull)(Functions.Identity)(a);
         }
 
         #endregion

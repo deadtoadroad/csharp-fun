@@ -1,34 +1,25 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DeadToadRoad.Fun.Extensions
 {
     public static class EnumerableExtensions
     {
-        #region FlatMap
+        #region Members
 
         public static IEnumerable<TB> FlatMap<TA, TB>(this IEnumerable<TA> @as, Func<TA, IEnumerable<TB>> f)
         {
-            return @as.SelectMany(f);
+            return EnumerableMembers.FlatMap(f)(@as);
         }
-
-        #endregion
-
-        #region Flatten
 
         public static IEnumerable<TA> Flatten<TA>(this IEnumerable<IEnumerable<TA>> @as)
         {
-            return @as.SelectMany(Functions.Identity);
+            return EnumerableMembers.Flatten(@as);
         }
-
-        #endregion
-
-        #region PrependRange
 
         public static IEnumerable<TA> PrependRange<TA>(this IEnumerable<TA> @as, IEnumerable<TA> range)
         {
-            return Functions.PrependRange(range)(@as);
+            return EnumerableMembers.PrependRange(range)(@as);
         }
 
         #endregion

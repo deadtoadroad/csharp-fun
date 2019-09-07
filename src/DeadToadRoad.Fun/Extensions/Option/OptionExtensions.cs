@@ -4,15 +4,15 @@ namespace DeadToadRoad.Fun.Extensions
     {
         #region Factories
 
-        public static Option<TA> AsOption<TA>(this TA? a)
+        public static Option<TA> ToOption<TA>(this TA? a)
             where TA : struct
         {
-            return Functions.AsOption(a);
+            return OptionFunctions.ToOption(a);
         }
 
-        public static Option<TA> AsOption<TA>(this TA a)
+        public static Option<TA> ToOption<TA>(this TA a)
         {
-            return Functions.AsOption(a);
+            return OptionFunctions.ToOption(a);
         }
 
         #endregion

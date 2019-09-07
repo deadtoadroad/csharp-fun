@@ -3,15 +3,11 @@ using System.Linq;
 
 namespace DeadToadRoad.Fun
 {
-    public static partial class Functions
+    public static partial class EnumerableMembers
     {
-        #region Flatten
-
         public static IEnumerable<TA> Flatten<TA>(IEnumerable<Option<TA>> @as)
         {
             return @as.SelectMany(OptionMembers.ToArray);
         }
-
-        #endregion
     }
 }
