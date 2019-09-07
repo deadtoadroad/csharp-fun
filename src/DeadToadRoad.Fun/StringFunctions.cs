@@ -36,7 +36,10 @@ namespace DeadToadRoad.Fun
 
         public static bool IsWhiteSpace(string a)
         {
-            return IsNotNull(a) && IsNullOrWhiteSpace(a);
+            return AsOption(a)
+                .Map(EnumerableMembers.Cast<char>)
+                .Map(EnumerableMembers.All<char>(char.IsWhiteSpace))
+                .GetOrElse(false);
         }
 
         public static bool IsNotWhiteSpace(string a)

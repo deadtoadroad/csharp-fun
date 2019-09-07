@@ -21,13 +21,13 @@ namespace DeadToadRoad.Fun
         public static Func<Func<TA?, TB>, Func<TA?, TB>> IfNUnsafe<TA, TB>(TA? v)
             where TA : struct
         {
-            return f => Flow2<TA?, Option<TB>, TB>(IfN<TA, TB>(v)(f))(OptionMembers.GetUnsafe);
+            return f => Flow2(IfN<TA, TB>(v)(f), OptionMembers.GetUnsafe);
         }
 
         public static Func<Func<TA?, TB>, Func<TA?, TB>> IfNotNUnsafe<TA, TB>(TA? v)
             where TA : struct
         {
-            return f => Flow2<TA?, Option<TB>, TB>(IfNotN<TA, TB>(v)(f))(OptionMembers.GetUnsafe);
+            return f => Flow2(IfNotN<TA, TB>(v)(f), OptionMembers.GetUnsafe);
         }
 
         #endregion
@@ -44,16 +44,10 @@ namespace DeadToadRoad.Fun
             return Not<TA>(IsNullable)(a);
         }
 
-        public static bool HasValue<TA>(TA? a)
-            where TA : struct
-        {
-            return a.HasValue;
-        }
-
         public static bool HasNotValue<TA>(TA? a)
             where TA : struct
         {
-            return Not<TA?>(HasValue)(a);
+            return Not<TA?>(NullableMembers.HasValue)(a);
         }
 
         #endregion

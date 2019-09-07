@@ -33,7 +33,7 @@ namespace DeadToadRoad.Fun
 
         public static Func<Func<TA, TB>, Func<TA, TB>> IfUnsafe<TA, TB>(Func<TA, bool> p)
         {
-            return f => Flow2<TA, Option<TB>, TB>(If<TA, TB>(p)(f))(OptionMembers.GetUnsafe);
+            return f => Flow2(If<TA, TB>(p)(f), OptionMembers.GetUnsafe);
         }
 
         #endregion
@@ -43,7 +43,7 @@ namespace DeadToadRoad.Fun
         public static Func<Func<TA, TB>, Func<TA, TB>> Match<TA, TB>(params Func<TA, Option<TB>>[] ifs)
         {
             return @else => a => ifs
-                .Select(@if => @if(a))
+                .Select(Apply<TA, Option<TB>>(a))
                 .FirstOrDefault(OptionMembers.IsSome)
                 .AsOption()
                 .Flatten()

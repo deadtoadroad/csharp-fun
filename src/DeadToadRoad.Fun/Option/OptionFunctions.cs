@@ -8,12 +8,12 @@ namespace DeadToadRoad.Fun
             where TA : struct
         {
             // ReSharper disable once PossibleInvalidOperationException
-            return IsNotNull(a) ? Some(a.Value) : None<TA>();
+            return If<TA?, TA>(NullableMembers.HasValue)(a1 => a1.Value)(a);
         }
 
         public static Option<TA> AsOption<TA>(TA a)
         {
-            return IsNotNull(a) ? Some(a) : None<TA>();
+            return If<TA, TA>(IsNotNull)(Identity)(a);
         }
 
         public static Option<TA> Some<TA>(TA a)

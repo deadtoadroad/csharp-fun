@@ -28,22 +28,22 @@ namespace DeadToadRoad.Fun
 
         public static Func<bool, TB> IfUnsafe<TB>(TB b)
         {
-            return Flow2<bool, Option<TB>, TB>(If(b))(OptionMembers.GetUnsafe);
+            return Flow2(If(b), OptionMembers.GetUnsafe);
         }
 
         public static Func<bool, TB> IfNotUnsafe<TB>(TB b)
         {
-            return Flow2<bool, Option<TB>, TB>(IfNot(b))(OptionMembers.GetUnsafe);
+            return Flow2(IfNot(b), OptionMembers.GetUnsafe);
         }
 
         public static Func<bool, TB> IfUnsafe<TB>(Func<TB> f)
         {
-            return Flow2<bool, Option<TB>, TB>(If(f))(OptionMembers.GetUnsafe);
+            return Flow2(If(f), OptionMembers.GetUnsafe);
         }
 
         public static Func<bool, TB> IfNotUnsafe<TB>(Func<TB> f)
         {
-            return Flow2<bool, Option<TB>, TB>(IfNot(f))(OptionMembers.GetUnsafe);
+            return Flow2(IfNot(f), OptionMembers.GetUnsafe);
         }
 
         #endregion
