@@ -1,4 +1,5 @@
 using System;
+using DeadToadRoad.Fun.Extensions;
 using Xbehave;
 using Xunit;
 using static DeadToadRoad.Fun.Functions;
@@ -23,6 +24,9 @@ namespace DeadToadRoad.Fun.Tests
 
         private static readonly Func<string, Func<string, Func<string, Func<string, Func<string, string>>>>> F5 =
             a => b => c => d => e => $"{a}{b}{c}{d}{e}";
+
+        private static readonly Func<Func<string, Func<string, Func<string, Func<string, Func<string, string>>>>>, string> A5 =
+            Apply5<string, string, string, string, string, string>("a")("b")("c")("d")("e");
 
         #region Apply
 
@@ -189,6 +193,34 @@ namespace DeadToadRoad.Fun.Tests
             Assert.Equal(E4, actual);
         }
 
+        [Fact]
+        public void RotateLeft2_RotateLeft2WithFlip()
+        {
+            var actual = A5(RotateLeft2(F5));
+            Assert.Equal(A5(RotateLeft2WithFlip(F5)), actual);
+        }
+
+        [Fact]
+        public void RotateLeft3_RotateLeft3WithFlip()
+        {
+            var actual = A5(RotateLeft3(F5));
+            Assert.Equal(A5(RotateLeft3WithFlip(F5)), actual);
+        }
+
+        [Fact]
+        public void RotateLeft4_RotateLeft4WithFlip()
+        {
+            var actual = A5(RotateLeft4(F5));
+            Assert.Equal(A5(RotateLeft4WithFlip(F5)), actual);
+        }
+
+        [Fact]
+        public void RotateLeft5_RotateLeft5WithFlip()
+        {
+            var actual = A5(RotateLeft5(F5));
+            Assert.Equal(A5(RotateLeft5WithFlip(F5)), actual);
+        }
+
         #endregion
 
         #region RotateRight
@@ -207,6 +239,34 @@ namespace DeadToadRoad.Fun.Tests
             Assert.Equal(E4, actual);
         }
 
+        [Fact]
+        public void RotateRight2_RotateRight2WithFlip()
+        {
+            var actual = A5(RotateRight2(F5));
+            Assert.Equal(A5(RotateRight2WithFlip(F5)), actual);
+        }
+
+        [Fact]
+        public void RotateRight3_RotateRight3WithFlip()
+        {
+            var actual = A5(RotateRight3(F5));
+            Assert.Equal(A5(RotateRight3WithFlip(F5)), actual);
+        }
+
+        [Fact]
+        public void RotateRight4_RotateRight4WithFlip()
+        {
+            var actual = A5(RotateRight4(F5));
+            Assert.Equal(A5(RotateRight4WithFlip(F5)), actual);
+        }
+
+        [Fact]
+        public void RotateRight5_RotateRight5WithFlip()
+        {
+            var actual = A5(RotateRight5(F5));
+            Assert.Equal(A5(RotateRight5WithFlip(F5)), actual);
+        }
+
         #endregion
 
         #region Uncurry
@@ -223,6 +283,70 @@ namespace DeadToadRoad.Fun.Tests
         {
             var actual = Uncurry3(F4)("a", "b", "c")("d");
             Assert.Equal(E4, actual);
+        }
+
+        #endregion
+
+        #region Alternative Functions
+
+        public static Func<TB, Func<TA, TC>> Flip1And2<TA, TB, TC>(Func<TA, Func<TB, TC>> f)
+        {
+            return Flip(f);
+        }
+
+        public static Func<TA, Func<TC, Func<TB, TD>>> Flip2And3<TA, TB, TC, TD>(Func<TA, Func<TB, Func<TC, TD>>> f)
+        {
+            return Compose(Flip1And2, f);
+        }
+
+        public static Func<TA, Func<TB, Func<TD, Func<TC, TE>>>> Flip3And4<TA, TB, TC, TD, TE>(Func<TA, Func<TB, Func<TC, Func<TD, TE>>>> f)
+        {
+            return Compose(Flip2And3, f);
+        }
+
+        public static Func<TA, Func<TB, Func<TC, Func<TE, Func<TD, TF>>>>> Flip4And5<TA, TB, TC, TD, TE, TF>(Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>> f)
+        {
+            return Compose(Flip3And4, f);
+        }
+
+        public static Func<TB, Func<TA, TC>> RotateLeft2WithFlip<TA, TB, TC>(Func<TA, Func<TB, TC>> f)
+        {
+            return Flip1And2(f);
+        }
+
+        public static Func<TB, Func<TC, Func<TA, TD>>> RotateLeft3WithFlip<TA, TB, TC, TD>(Func<TA, Func<TB, Func<TC, TD>>> f)
+        {
+            return f.Compose(Flip2And3, RotateLeft2WithFlip);
+        }
+
+        public static Func<TB, Func<TC, Func<TD, Func<TA, TE>>>> RotateLeft4WithFlip<TA, TB, TC, TD, TE>(Func<TA, Func<TB, Func<TC, Func<TD, TE>>>> f)
+        {
+            return f.Compose(Flip3And4, RotateLeft3WithFlip);
+        }
+
+        public static Func<TB, Func<TC, Func<TD, Func<TE, Func<TA, TF>>>>> RotateLeft5WithFlip<TA, TB, TC, TD, TE, TF>(Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>> f)
+        {
+            return f.Compose(Flip4And5, RotateLeft4WithFlip);
+        }
+
+        public static Func<TB, Func<TA, TC>> RotateRight2WithFlip<TA, TB, TC>(Func<TA, Func<TB, TC>> f)
+        {
+            return Flip1And2(f);
+        }
+
+        public static Func<TC, Func<TA, Func<TB, TD>>> RotateRight3WithFlip<TA, TB, TC, TD>(Func<TA, Func<TB, Func<TC, TD>>> f)
+        {
+            return f.Compose(RotateRight2WithFlip, Flip2And3);
+        }
+
+        public static Func<TD, Func<TA, Func<TB, Func<TC, TE>>>> RotateRight4WithFlip<TA, TB, TC, TD, TE>(Func<TA, Func<TB, Func<TC, Func<TD, TE>>>> f)
+        {
+            return f.Compose(RotateRight3WithFlip, Flip3And4);
+        }
+
+        public static Func<TE, Func<TA, Func<TB, Func<TC, Func<TD, TF>>>>> RotateRight5WithFlip<TA, TB, TC, TD, TE, TF>(Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>> f)
+        {
+            return f.Compose(RotateRight4WithFlip, Flip4And5);
         }
 
         #endregion
