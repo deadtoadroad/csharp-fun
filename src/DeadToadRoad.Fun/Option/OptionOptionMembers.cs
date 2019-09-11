@@ -4,7 +4,7 @@ namespace DeadToadRoad.Fun
     {
         public static Option<TA> Flatten<TA>(Option<Option<TA>> a)
         {
-            return a.IsSome ? a.GetUnsafe() : OptionFunctions.None<TA>();
+            return a.FlatMap(Functions.Identity);
         }
     }
 }

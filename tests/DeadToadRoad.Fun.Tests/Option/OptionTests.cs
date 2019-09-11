@@ -1,6 +1,6 @@
 using System;
 using Xunit;
-using static DeadToadRoad.Fun.OptionFunctions;
+using static DeadToadRoad.Fun.Functions;
 
 namespace DeadToadRoad.Fun.Tests
 {

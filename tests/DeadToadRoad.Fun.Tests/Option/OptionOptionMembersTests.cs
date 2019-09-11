@@ -1,5 +1,5 @@
 using Xunit;
-using static DeadToadRoad.Fun.OptionFunctions;
+using static DeadToadRoad.Fun.Functions;
 using static DeadToadRoad.Fun.OptionMembers;
 
 namespace DeadToadRoad.Fun.Tests

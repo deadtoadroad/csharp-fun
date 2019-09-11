@@ -10,6 +10,7 @@ namespace DeadToadRoad.Fun.Tests
         private const string E2 = "ab";
         private const string E3 = "abc";
         private const string E4 = "abcd";
+        private const string E5 = "abcde";
 
         private static readonly Func<string, Func<string, string>> F2 =
             a => b => $"{a}{b}";
@@ -19,6 +20,9 @@ namespace DeadToadRoad.Fun.Tests
 
         private static readonly Func<string, Func<string, Func<string, Func<string, string>>>> F4 =
             a => b => c => d => $"{a}{b}{c}{d}";
+
+        private static readonly Func<string, Func<string, Func<string, Func<string, Func<string, string>>>>> F5 =
+            a => b => c => d => e => $"{a}{b}{c}{d}{e}";
 
         #region Apply
 

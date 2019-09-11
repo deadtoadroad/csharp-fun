@@ -1,6 +1,6 @@
 namespace DeadToadRoad.Fun
 {
-    public static class OptionFunctions
+    public static partial class Functions
     {
         #region Factories
 
@@ -17,12 +17,12 @@ namespace DeadToadRoad.Fun
         public static Option<TA> ToOption<TA>(TA? a)
             where TA : struct
         {
-            return Functions.If<TA?, TA>(Functions.HasValue)(NullableMembers.Value)(a);
+            return If<TA?, TA>(HasValue)(NullableMembers.Value)(a);
         }
 
         public static Option<TA> ToOption<TA>(TA a)
         {
-            return Functions.If<TA, TA>(Functions.IsNotNull)(Functions.Identity)(a);
+            return If<TA, TA>(IsNotNull)(Identity)(a);
         }
 
         #endregion
