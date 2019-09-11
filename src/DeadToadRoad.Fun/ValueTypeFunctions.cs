@@ -21,13 +21,13 @@ namespace DeadToadRoad.Fun
         public static Func<Func<TA, TB>, Func<TA, TB>> IfUnsafe<TA, TB>(TA v)
             where TA : struct
         {
-            return f => Flow2(If<TA, TB>(v)(f), OptionMembers.GetUnsafe);
+            return f => Flow(If<TA, TB>(v)(f), OptionMembers.GetUnsafe);
         }
 
         public static Func<Func<TA, TB>, Func<TA, TB>> IfNotUnsafe<TA, TB>(TA v)
             where TA : struct
         {
-            return f => Flow2(IfNot<TA, TB>(v)(f), OptionMembers.GetUnsafe);
+            return f => Flow(IfNot<TA, TB>(v)(f), OptionMembers.GetUnsafe);
         }
 
         #endregion

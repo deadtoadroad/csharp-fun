@@ -33,7 +33,7 @@ namespace DeadToadRoad.Fun
 
         public static Func<Func<TA, TB>, Func<TA, TB>> IfUnsafe<TA, TB>(Func<TA, bool> p)
         {
-            return f => Flow2(If<TA, TB>(p)(f), OptionMembers.GetUnsafe);
+            return f => Flow(If<TA, TB>(p)(f), OptionMembers.GetUnsafe);
         }
 
         #endregion

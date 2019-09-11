@@ -106,74 +106,29 @@ namespace DeadToadRoad.Fun
 
         #region Compose
 
-        public static Func<Func<TA, TB>, Func<TA, TC>> Compose2<TA, TB, TC>(Func<TB, TC> fbc)
+        public static Func<Func<TA, TB>, Func<TA, TC>> Compose<TA, TB, TC>(Func<TB, TC> fbc)
         {
             return fab => a => fbc(fab(a));
         }
 
-        public static Func<TA, TC> Compose2<TA, TB, TC>(Func<TB, TC> fbc, Func<TA, TB> fab)
+        public static Func<TA, TC> Compose<TA, TB, TC>(Func<TB, TC> fbc, Func<TA, TB> fab)
         {
-            return Compose2<TA, TB, TC>(fbc)(fab);
+            return a => fbc(fab(a));
         }
 
-        public static Func<Func<TB, TC>, Func<Func<TA, TB>, Func<TA, TD>>> Compose3<TA, TB, TC, TD>(Func<TC, TD> fcd)
+        public static Func<TA, TD> Compose<TA, TB, TC, TD>(Func<TC, TD> fcd, Func<TB, TC> fbc, Func<TA, TB> fab)
         {
-            return fbc => fab => a => fcd(fbc(fab(a)));
+            return a => fcd(fbc(fab(a)));
         }
 
-        public static Func<Func<TA, TB>, Func<TA, TD>> Compose3<TA, TB, TC, TD>(Func<TC, TD> fcd, Func<TB, TC> fbc)
+        public static Func<TA, TE> Compose<TA, TB, TC, TD, TE>(Func<TD, TE> fde, Func<TC, TD> fcd, Func<TB, TC> fbc, Func<TA, TB> fab)
         {
-            return Compose3<TA, TB, TC, TD>(fcd)(fbc);
+            return a => fde(fcd(fbc(fab(a))));
         }
 
-        public static Func<TA, TD> Compose3<TA, TB, TC, TD>(Func<TC, TD> fcd, Func<TB, TC> fbc, Func<TA, TB> fab)
+        public static Func<TA, TF> Compose<TA, TB, TC, TD, TE, TF>(Func<TE, TF> fef, Func<TD, TE> fde, Func<TC, TD> fcd, Func<TB, TC> fbc, Func<TA, TB> fab)
         {
-            return Compose3<TA, TB, TC, TD>(fcd)(fbc)(fab);
-        }
-
-        public static Func<Func<TC, TD>, Func<Func<TB, TC>, Func<Func<TA, TB>, Func<TA, TE>>>> Compose4<TA, TB, TC, TD, TE>(Func<TD, TE> fde)
-        {
-            return fcd => fbc => fab => a => fde(fcd(fbc(fab(a))));
-        }
-
-        public static Func<Func<TB, TC>, Func<Func<TA, TB>, Func<TA, TE>>> Compose4<TA, TB, TC, TD, TE>(Func<TD, TE> fde, Func<TC, TD> fcd)
-        {
-            return Compose4<TA, TB, TC, TD, TE>(fde)(fcd);
-        }
-
-        public static Func<Func<TA, TB>, Func<TA, TE>> Compose4<TA, TB, TC, TD, TE>(Func<TD, TE> fde, Func<TC, TD> fcd, Func<TB, TC> fbc)
-        {
-            return Compose4<TA, TB, TC, TD, TE>(fde)(fcd)(fbc);
-        }
-
-        public static Func<TA, TE> Compose4<TA, TB, TC, TD, TE>(Func<TD, TE> fde, Func<TC, TD> fcd, Func<TB, TC> fbc, Func<TA, TB> fab)
-        {
-            return Compose4<TA, TB, TC, TD, TE>(fde)(fcd)(fbc)(fab);
-        }
-
-        public static Func<Func<TD, TE>, Func<Func<TC, TD>, Func<Func<TB, TC>, Func<Func<TA, TB>, Func<TA, TF>>>>> Compose5<TA, TB, TC, TD, TE, TF>(Func<TE, TF> fef)
-        {
-            return fde => fcd => fbc => fab => a => fef(fde(fcd(fbc(fab(a)))));
-        }
-
-        public static Func<Func<TC, TD>, Func<Func<TB, TC>, Func<Func<TA, TB>, Func<TA, TF>>>> Compose5<TA, TB, TC, TD, TE, TF>(Func<TE, TF> fef, Func<TD, TE> fde)
-        {
-            return Compose5<TA, TB, TC, TD, TE, TF>(fef)(fde);
-        }
-
-        public static Func<Func<TB, TC>, Func<Func<TA, TB>, Func<TA, TF>>> Compose5<TA, TB, TC, TD, TE, TF>(Func<TE, TF> fef, Func<TD, TE> fde, Func<TC, TD> fcd)
-        {
-            return Compose5<TA, TB, TC, TD, TE, TF>(fef)(fde)(fcd);
-        }
-
-        public static Func<Func<TA, TB>, Func<TA, TF>> Compose5<TA, TB, TC, TD, TE, TF>(Func<TE, TF> fef, Func<TD, TE> fde, Func<TC, TD> fcd, Func<TB, TC> fbc)
-        {
-            return Compose5<TA, TB, TC, TD, TE, TF>(fef)(fde)(fcd)(fbc);
-        }
-
-        public static Func<TA, TF> Compose5<TA, TB, TC, TD, TE, TF>(Func<TE, TF> fef, Func<TD, TE> fde, Func<TC, TD> fcd, Func<TB, TC> fbc, Func<TA, TB> fab)
-        {
-            return Compose5<TA, TB, TC, TD, TE, TF>(fef)(fde)(fcd)(fbc)(fab);
+            return a => fef(fde(fcd(fbc(fab(a)))));
         }
 
         #endregion
@@ -204,74 +159,29 @@ namespace DeadToadRoad.Fun
 
         #region Flow
 
-        public static Func<Func<TB, TC>, Func<TA, TC>> Flow2<TA, TB, TC>(Func<TA, TB> fab)
+        public static Func<Func<TB, TC>, Func<TA, TC>> Flow<TA, TB, TC>(Func<TA, TB> fab)
         {
             return fbc => a => fbc(fab(a));
         }
 
-        public static Func<TA, TC> Flow2<TA, TB, TC>(Func<TA, TB> fab, Func<TB, TC> fbc)
+        public static Func<TA, TC> Flow<TA, TB, TC>(Func<TA, TB> fab, Func<TB, TC> fbc)
         {
-            return Flow2<TA, TB, TC>(fab)(fbc);
+            return a => fbc(fab(a));
         }
 
-        public static Func<Func<TB, TC>, Func<Func<TC, TD>, Func<TA, TD>>> Flow3<TA, TB, TC, TD>(Func<TA, TB> fab)
+        public static Func<TA, TD> Flow<TA, TB, TC, TD>(Func<TA, TB> fab, Func<TB, TC> fbc, Func<TC, TD> fcd)
         {
-            return fbc => fcd => a => fcd(fbc(fab(a)));
+            return a => fcd(fbc(fab(a)));
         }
 
-        public static Func<Func<TC, TD>, Func<TA, TD>> Flow3<TA, TB, TC, TD>(Func<TA, TB> fab, Func<TB, TC> fbc)
+        public static Func<TA, TE> Flow<TA, TB, TC, TD, TE>(Func<TA, TB> fab, Func<TB, TC> fbc, Func<TC, TD> fcd, Func<TD, TE> fde)
         {
-            return Flow3<TA, TB, TC, TD>(fab)(fbc);
+            return a => fde(fcd(fbc(fab(a))));
         }
 
-        public static Func<TA, TD> Flow3<TA, TB, TC, TD>(Func<TA, TB> fab, Func<TB, TC> fbc, Func<TC, TD> fcd)
+        public static Func<TA, TF> Flow<TA, TB, TC, TD, TE, TF>(Func<TA, TB> fab, Func<TB, TC> fbc, Func<TC, TD> fcd, Func<TD, TE> fde, Func<TE, TF> fef)
         {
-            return Flow3<TA, TB, TC, TD>(fab)(fbc)(fcd);
-        }
-
-        public static Func<Func<TB, TC>, Func<Func<TC, TD>, Func<Func<TD, TE>, Func<TA, TE>>>> Flow4<TA, TB, TC, TD, TE>(Func<TA, TB> fab)
-        {
-            return fbc => fcd => fde => a => fde(fcd(fbc(fab(a))));
-        }
-
-        public static Func<Func<TC, TD>, Func<Func<TD, TE>, Func<TA, TE>>> Flow4<TA, TB, TC, TD, TE>(Func<TA, TB> fab, Func<TB, TC> fbc)
-        {
-            return Flow4<TA, TB, TC, TD, TE>(fab)(fbc);
-        }
-
-        public static Func<Func<TD, TE>, Func<TA, TE>> Flow4<TA, TB, TC, TD, TE>(Func<TA, TB> fab, Func<TB, TC> fbc, Func<TC, TD> fcd)
-        {
-            return Flow4<TA, TB, TC, TD, TE>(fab)(fbc)(fcd);
-        }
-
-        public static Func<TA, TE> Flow4<TA, TB, TC, TD, TE>(Func<TA, TB> fab, Func<TB, TC> fbc, Func<TC, TD> fcd, Func<TD, TE> fde)
-        {
-            return Flow4<TA, TB, TC, TD, TE>(fab)(fbc)(fcd)(fde);
-        }
-
-        public static Func<Func<TB, TC>, Func<Func<TC, TD>, Func<Func<TD, TE>, Func<Func<TE, TF>, Func<TA, TF>>>>> Flow5<TA, TB, TC, TD, TE, TF>(Func<TA, TB> fab)
-        {
-            return fbc => fcd => fde => fef => a => fef(fde(fcd(fbc(fab(a)))));
-        }
-
-        public static Func<Func<TC, TD>, Func<Func<TD, TE>, Func<Func<TE, TF>, Func<TA, TF>>>> Flow5<TA, TB, TC, TD, TE, TF>(Func<TA, TB> fab, Func<TB, TC> fbc)
-        {
-            return Flow5<TA, TB, TC, TD, TE, TF>(fab)(fbc);
-        }
-
-        public static Func<Func<TD, TE>, Func<Func<TE, TF>, Func<TA, TF>>> Flow5<TA, TB, TC, TD, TE, TF>(Func<TA, TB> fab, Func<TB, TC> fbc, Func<TC, TD> fcd)
-        {
-            return Flow5<TA, TB, TC, TD, TE, TF>(fab)(fbc)(fcd);
-        }
-
-        public static Func<Func<TE, TF>, Func<TA, TF>> Flow5<TA, TB, TC, TD, TE, TF>(Func<TA, TB> fab, Func<TB, TC> fbc, Func<TC, TD> fcd, Func<TD, TE> fde)
-        {
-            return Flow5<TA, TB, TC, TD, TE, TF>(fab)(fbc)(fcd)(fde);
-        }
-
-        public static Func<TA, TF> Flow5<TA, TB, TC, TD, TE, TF>(Func<TA, TB> fab, Func<TB, TC> fbc, Func<TC, TD> fcd, Func<TD, TE> fde, Func<TE, TF> fef)
-        {
-            return Flow5<TA, TB, TC, TD, TE, TF>(fab)(fbc)(fcd)(fde)(fef);
+            return a => fef(fde(fcd(fbc(fab(a)))));
         }
 
         #endregion
@@ -302,27 +212,27 @@ namespace DeadToadRoad.Fun
 
         public static Func<TA, bool> Not<TA>(Func<TA, bool> f)
         {
-            return a => Not(f(a));
+            return Compose(Not, f);
         }
 
         public static Func<TA, Func<TB, bool>> Not<TA, TB>(Func<TA, Func<TB, bool>> f)
         {
-            return a => Not(f(a));
+            return Compose(Not, f);
         }
 
         public static Func<TA, Func<TB, Func<TC, bool>>> Not<TA, TB, TC>(Func<TA, Func<TB, Func<TC, bool>>> f)
         {
-            return a => Not(f(a));
+            return Compose(Not, f);
         }
 
         public static Func<TA, Func<TB, Func<TC, Func<TD, bool>>>> Not<TA, TB, TC, TD>(Func<TA, Func<TB, Func<TC, Func<TD, bool>>>> f)
         {
-            return a => Not(f(a));
+            return Compose(Not, f);
         }
 
         public static Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, bool>>>>> Not<TA, TB, TC, TD, TE>(Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, bool>>>>> f)
         {
-            return a => Not(f(a));
+            return Compose(Not, f);
         }
 
         #endregion
