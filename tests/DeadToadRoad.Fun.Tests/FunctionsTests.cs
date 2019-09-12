@@ -1,5 +1,4 @@
 using System;
-using DeadToadRoad.Fun.Extensions;
 using Xbehave;
 using Xunit;
 using static DeadToadRoad.Fun.Functions;
@@ -175,6 +174,34 @@ namespace DeadToadRoad.Fun.Tests
             Assert.Equal(E4, actual);
         }
 
+        [Fact]
+        public void Reverse2_Reverse2WithFlip()
+        {
+            var actual = A5(Reverse2(F5));
+            Assert.Equal(A5(Reverse2WithFlip(F5)), actual);
+        }
+
+        [Fact]
+        public void Reverse3_Reverse3WithFlip()
+        {
+            var actual = A5(Reverse3(F5));
+            Assert.Equal(A5(Reverse3WithFlip(F5)), actual);
+        }
+
+        [Fact]
+        public void Reverse4_Reverse4WithFlip()
+        {
+            var actual = A5(Reverse4(F5));
+            Assert.Equal(A5(Reverse4WithFlip(F5)), actual);
+        }
+
+        [Fact]
+        public void Reverse5_Reverse5WithFlip()
+        {
+            var actual = A5(Reverse5(F5));
+            Assert.Equal(A5(Reverse5WithFlip(F5)), actual);
+        }
+
         #endregion
 
         #region RotateLeft
@@ -289,6 +316,8 @@ namespace DeadToadRoad.Fun.Tests
 
         #region Alternative Functions
 
+        #region Flip
+
         public static Func<TB, Func<TA, TC>> Flip1And2<TA, TB, TC>(Func<TA, Func<TB, TC>> f)
         {
             return Flip(f);
@@ -309,6 +338,34 @@ namespace DeadToadRoad.Fun.Tests
             return Compose(Flip3And4, f);
         }
 
+        #endregion
+
+        #region Reverse
+
+        public static Func<TB, Func<TA, TC>> Reverse2WithFlip<TA, TB, TC>(Func<TA, Func<TB, TC>> f)
+        {
+            return Flip1And2(f);
+        }
+
+        public static Func<TC, Func<TB, Func<TA, TD>>> Reverse3WithFlip<TA, TB, TC, TD>(Func<TA, Func<TB, Func<TC, TD>>> f)
+        {
+            return Compose(Reverse2WithFlip, RotateRight3WithFlip(f));
+        }
+
+        public static Func<TD, Func<TC, Func<TB, Func<TA, TE>>>> Reverse4WithFlip<TA, TB, TC, TD, TE>(Func<TA, Func<TB, Func<TC, Func<TD, TE>>>> f)
+        {
+            return Compose(Reverse3WithFlip, RotateRight4WithFlip(f));
+        }
+
+        public static Func<TE, Func<TD, Func<TC, Func<TB, Func<TA, TF>>>>> Reverse5WithFlip<TA, TB, TC, TD, TE, TF>(Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>> f)
+        {
+            return Compose(Reverse4WithFlip, RotateRight5WithFlip(f));
+        }
+
+        #endregion
+
+        #region RotateLeft
+
         public static Func<TB, Func<TA, TC>> RotateLeft2WithFlip<TA, TB, TC>(Func<TA, Func<TB, TC>> f)
         {
             return Flip1And2(f);
@@ -316,18 +373,22 @@ namespace DeadToadRoad.Fun.Tests
 
         public static Func<TB, Func<TC, Func<TA, TD>>> RotateLeft3WithFlip<TA, TB, TC, TD>(Func<TA, Func<TB, Func<TC, TD>>> f)
         {
-            return f.Compose(Flip2And3, RotateLeft2WithFlip);
+            return Flip2And3(RotateLeft2WithFlip(f));
         }
 
         public static Func<TB, Func<TC, Func<TD, Func<TA, TE>>>> RotateLeft4WithFlip<TA, TB, TC, TD, TE>(Func<TA, Func<TB, Func<TC, Func<TD, TE>>>> f)
         {
-            return f.Compose(Flip3And4, RotateLeft3WithFlip);
+            return Flip3And4(RotateLeft3WithFlip(f));
         }
 
         public static Func<TB, Func<TC, Func<TD, Func<TE, Func<TA, TF>>>>> RotateLeft5WithFlip<TA, TB, TC, TD, TE, TF>(Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>> f)
         {
-            return f.Compose(Flip4And5, RotateLeft4WithFlip);
+            return Flip4And5(RotateLeft4WithFlip(f));
         }
+
+        #endregion
+
+        #region RotateRight
 
         public static Func<TB, Func<TA, TC>> RotateRight2WithFlip<TA, TB, TC>(Func<TA, Func<TB, TC>> f)
         {
@@ -336,18 +397,20 @@ namespace DeadToadRoad.Fun.Tests
 
         public static Func<TC, Func<TA, Func<TB, TD>>> RotateRight3WithFlip<TA, TB, TC, TD>(Func<TA, Func<TB, Func<TC, TD>>> f)
         {
-            return f.Compose(RotateRight2WithFlip, Flip2And3);
+            return RotateRight2WithFlip(Flip2And3(f));
         }
 
         public static Func<TD, Func<TA, Func<TB, Func<TC, TE>>>> RotateRight4WithFlip<TA, TB, TC, TD, TE>(Func<TA, Func<TB, Func<TC, Func<TD, TE>>>> f)
         {
-            return f.Compose(RotateRight3WithFlip, Flip3And4);
+            return RotateRight3WithFlip(Flip3And4(f));
         }
 
         public static Func<TE, Func<TA, Func<TB, Func<TC, Func<TD, TF>>>>> RotateRight5WithFlip<TA, TB, TC, TD, TE, TF>(Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>> f)
         {
-            return f.Compose(RotateRight4WithFlip, Flip4And5);
+            return RotateRight4WithFlip(Flip4And5(f));
         }
+
+        #endregion
 
         #endregion
     }

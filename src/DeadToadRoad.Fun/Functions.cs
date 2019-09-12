@@ -39,7 +39,7 @@ namespace DeadToadRoad.Fun
 
         public static Func<Func<TA, Func<TB, TC>>, TC> Apply2<TA, TB, TC>(TA a, TB b)
         {
-            return Apply2<TA, TB, TC>(a)(b);
+            return f => f(a)(b);
         }
 
         public static Func<TB, Func<TC, Func<Func<TA, Func<TB, Func<TC, TD>>>, TD>>> Apply3<TA, TB, TC, TD>(TA a)
@@ -49,12 +49,12 @@ namespace DeadToadRoad.Fun
 
         public static Func<TC, Func<Func<TA, Func<TB, Func<TC, TD>>>, TD>> Apply3<TA, TB, TC, TD>(TA a, TB b)
         {
-            return Apply3<TA, TB, TC, TD>(a)(b);
+            return c => f => f(a)(b)(c);
         }
 
         public static Func<Func<TA, Func<TB, Func<TC, TD>>>, TD> Apply3<TA, TB, TC, TD>(TA a, TB b, TC c)
         {
-            return Apply3<TA, TB, TC, TD>(a)(b)(c);
+            return f => f(a)(b)(c);
         }
 
         public static Func<TB, Func<TC, Func<TD, Func<Func<TA, Func<TB, Func<TC, Func<TD, TE>>>>, TE>>>> Apply4<TA, TB, TC, TD, TE>(TA a)
@@ -64,17 +64,17 @@ namespace DeadToadRoad.Fun
 
         public static Func<TC, Func<TD, Func<Func<TA, Func<TB, Func<TC, Func<TD, TE>>>>, TE>>> Apply4<TA, TB, TC, TD, TE>(TA a, TB b)
         {
-            return Apply4<TA, TB, TC, TD, TE>(a)(b);
+            return c => d => f => f(a)(b)(c)(d);
         }
 
         public static Func<TD, Func<Func<TA, Func<TB, Func<TC, Func<TD, TE>>>>, TE>> Apply4<TA, TB, TC, TD, TE>(TA a, TB b, TC c)
         {
-            return Apply4<TA, TB, TC, TD, TE>(a)(b)(c);
+            return d => f => f(a)(b)(c)(d);
         }
 
         public static Func<Func<TA, Func<TB, Func<TC, Func<TD, TE>>>>, TE> Apply4<TA, TB, TC, TD, TE>(TA a, TB b, TC c, TD d)
         {
-            return Apply4<TA, TB, TC, TD, TE>(a)(b)(c)(d);
+            return f => f(a)(b)(c)(d);
         }
 
         public static Func<TB, Func<TC, Func<TD, Func<TE, Func<Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>>, TF>>>>> Apply5<TA, TB, TC, TD, TE, TF>(TA a)
@@ -84,22 +84,22 @@ namespace DeadToadRoad.Fun
 
         public static Func<TC, Func<TD, Func<TE, Func<Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>>, TF>>>> Apply5<TA, TB, TC, TD, TE, TF>(TA a, TB b)
         {
-            return Apply5<TA, TB, TC, TD, TE, TF>(a)(b);
+            return c => d => e => f => f(a)(b)(c)(d)(e);
         }
 
         public static Func<TD, Func<TE, Func<Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>>, TF>>> Apply5<TA, TB, TC, TD, TE, TF>(TA a, TB b, TC c)
         {
-            return Apply5<TA, TB, TC, TD, TE, TF>(a)(b)(c);
+            return d => e => f => f(a)(b)(c)(d)(e);
         }
 
         public static Func<TE, Func<Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>>, TF>> Apply5<TA, TB, TC, TD, TE, TF>(TA a, TB b, TC c, TD d)
         {
-            return Apply5<TA, TB, TC, TD, TE, TF>(a)(b)(c)(d);
+            return e => f => f(a)(b)(c)(d)(e);
         }
 
         public static Func<Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>>, TF> Apply5<TA, TB, TC, TD, TE, TF>(TA a, TB b, TC c, TD d, TE e)
         {
-            return Apply5<TA, TB, TC, TD, TE, TF>(a)(b)(c)(d)(e);
+            return f => f(a)(b)(c)(d)(e);
         }
 
         #endregion
@@ -116,17 +116,17 @@ namespace DeadToadRoad.Fun
             return a => fbc(fab(a));
         }
 
-        public static Func<TA, TD> Compose<TA, TB, TC, TD>(Func<TC, TD> fcd, Func<TB, TC> fbc, Func<TA, TB> fab)
+        public static Func<TA, TD> Compose3<TA, TB, TC, TD>(Func<TC, TD> fcd, Func<TB, TC> fbc, Func<TA, TB> fab)
         {
             return a => fcd(fbc(fab(a)));
         }
 
-        public static Func<TA, TE> Compose<TA, TB, TC, TD, TE>(Func<TD, TE> fde, Func<TC, TD> fcd, Func<TB, TC> fbc, Func<TA, TB> fab)
+        public static Func<TA, TE> Compose4<TA, TB, TC, TD, TE>(Func<TD, TE> fde, Func<TC, TD> fcd, Func<TB, TC> fbc, Func<TA, TB> fab)
         {
             return a => fde(fcd(fbc(fab(a))));
         }
 
-        public static Func<TA, TF> Compose<TA, TB, TC, TD, TE, TF>(Func<TE, TF> fef, Func<TD, TE> fde, Func<TC, TD> fcd, Func<TB, TC> fbc, Func<TA, TB> fab)
+        public static Func<TA, TF> Compose5<TA, TB, TC, TD, TE, TF>(Func<TE, TF> fef, Func<TD, TE> fde, Func<TC, TD> fcd, Func<TB, TC> fbc, Func<TA, TB> fab)
         {
             return a => fef(fde(fcd(fbc(fab(a)))));
         }
@@ -169,17 +169,17 @@ namespace DeadToadRoad.Fun
             return a => fbc(fab(a));
         }
 
-        public static Func<TA, TD> Flow<TA, TB, TC, TD>(Func<TA, TB> fab, Func<TB, TC> fbc, Func<TC, TD> fcd)
+        public static Func<TA, TD> Flow3<TA, TB, TC, TD>(Func<TA, TB> fab, Func<TB, TC> fbc, Func<TC, TD> fcd)
         {
             return a => fcd(fbc(fab(a)));
         }
 
-        public static Func<TA, TE> Flow<TA, TB, TC, TD, TE>(Func<TA, TB> fab, Func<TB, TC> fbc, Func<TC, TD> fcd, Func<TD, TE> fde)
+        public static Func<TA, TE> Flow4<TA, TB, TC, TD, TE>(Func<TA, TB> fab, Func<TB, TC> fbc, Func<TC, TD> fcd, Func<TD, TE> fde)
         {
             return a => fde(fcd(fbc(fab(a))));
         }
 
-        public static Func<TA, TF> Flow<TA, TB, TC, TD, TE, TF>(Func<TA, TB> fab, Func<TB, TC> fbc, Func<TC, TD> fcd, Func<TD, TE> fde, Func<TE, TF> fef)
+        public static Func<TA, TF> Flow5<TA, TB, TC, TD, TE, TF>(Func<TA, TB> fab, Func<TB, TC> fbc, Func<TC, TD> fcd, Func<TD, TE> fde, Func<TE, TF> fef)
         {
             return a => fef(fde(fcd(fbc(fab(a)))));
         }
