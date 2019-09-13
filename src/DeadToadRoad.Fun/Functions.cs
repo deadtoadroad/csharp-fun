@@ -135,6 +135,26 @@ namespace DeadToadRoad.Fun
 
         #region Curry
 
+        public static Func<TA, Action<TB>> Curry<TA, TB>(Action<TA, TB> f)
+        {
+            return a => b => f(a, b);
+        }
+
+        public static Func<TA, Func<TB, Action<TC>>> Curry<TA, TB, TC>(Action<TA, TB, TC> f)
+        {
+            return a => b => c => f(a, b, c);
+        }
+
+        public static Func<TA, Func<TB, Func<TC, Action<TD>>>> Curry<TA, TB, TC, TD>(Action<TA, TB, TC, TD> f)
+        {
+            return a => b => c => d => f(a, b, c, d);
+        }
+
+        public static Func<TA, Func<TB, Func<TC, Func<TD, Action<TE>>>>> Curry<TA, TB, TC, TD, TE>(Action<TA, TB, TC, TD, TE> f)
+        {
+            return a => b => c => d => e => f(a, b, c, d, e);
+        }
+
         public static Func<TA, Func<TB, TC>> Curry<TA, TB, TC>(Func<TA, TB, TC> f)
         {
             return a => b => f(a, b);
@@ -310,6 +330,26 @@ namespace DeadToadRoad.Fun
         #endregion
 
         #region Uncurry
+
+        public static Action<TA, TB> Uncurry<TA, TB>(Func<TA, Action<TB>> f)
+        {
+            return (a, b) => f(a)(b);
+        }
+
+        public static Action<TA, TB, TC> Uncurry<TA, TB, TC>(Func<TA, Func<TB, Action<TC>>> f)
+        {
+            return (a, b, c) => f(a)(b)(c);
+        }
+
+        public static Action<TA, TB, TC, TD> Uncurry<TA, TB, TC, TD>(Func<TA, Func<TB, Func<TC, Action<TD>>>> f)
+        {
+            return (a, b, c, d) => f(a)(b)(c)(d);
+        }
+
+        public static Action<TA, TB, TC, TD, TE> Uncurry<TA, TB, TC, TD, TE>(Func<TA, Func<TB, Func<TC, Func<TD, Action<TE>>>>> f)
+        {
+            return (a, b, c, d, e) => f(a)(b)(c)(d)(e);
+        }
 
         public static Func<TA, TB, TC> Uncurry2<TA, TB, TC>(Func<TA, Func<TB, TC>> f)
         {

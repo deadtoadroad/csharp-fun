@@ -12,6 +12,9 @@ namespace DeadToadRoad.Fun.Tests
         private const string E4 = "abcd";
         private const string E5 = "abcde";
 
+        private static readonly Func<string, Action<string>> AssertEqual =
+            Curry<string, string>(Assert.Equal);
+
         private static readonly Func<string, Func<string, string>> F2 =
             a => b => $"{a}{b}";
 
@@ -24,23 +27,72 @@ namespace DeadToadRoad.Fun.Tests
         private static readonly Func<string, Func<string, Func<string, Func<string, Func<string, string>>>>> F5 =
             a => b => c => d => e => $"{a}{b}{c}{d}{e}";
 
-        private static readonly Func<Func<string, Func<string, Func<string, Func<string, Func<string, string>>>>>, string> A5 =
-            Apply5<string, string, string, string, string, string>("a")("b")("c")("d")("e");
+        private static readonly Func<string, Func<string, Func<Func<string, Func<string, string>>, string>>> A2 =
+            Apply2<string, string, string>;
+
+        private static readonly Func<string, Func<string, Func<string, Func<Func<string, Func<string, Func<string, string>>>, string>>>> A3 =
+            Apply3<string, string, string, string>;
+
+        private static readonly Func<string, Func<string, Func<string, Func<string, Func<Func<string, Func<string, Func<string, Func<string, string>>>>, string>>>>> A4 =
+            Apply4<string, string, string, string, string>;
+
+        private static readonly Func<string, Func<string, Func<string, Func<string, Func<string, Func<Func<string, Func<string, Func<string, Func<string, Func<string, string>>>>>, string>>>>>> A5 =
+            Apply5<string, string, string, string, string, string>;
 
         #region Apply
 
         [Fact]
-        public void Apply3_3()
+        public void Apply2_2()
         {
-            var actual = Apply3<string, string, string, string>("a")("b")("c")(F3);
+            Assert.All(new[] {
+                Apply2<string, string, string>("a")("b")(F2),
+                Apply2<string, string, string>("a", "b")(F2),
+                Apply2WithFlip<string, string, string>("a")("b")(F2)
+            }, AssertEqual(E2));
+            ;
+        }
+
+        [Fact]
+        public void Apply2_3()
+        {
+            var actual = Apply2<string, string, Func<string, string>>("a")("b")(F3)("c");
             Assert.Equal(E3, actual);
         }
 
         [Fact]
-        public void Apply3_4()
+        public void Apply3_3()
         {
-            var actual = Apply3<string, string, string, Func<string, string>>("a")("b")("c")(F4)("d");
-            Assert.Equal(E4, actual);
+            Assert.All(new[] {
+                Apply3<string, string, string, string>("a")("b")("c")(F3),
+                Apply3<string, string, string, string>("a", "b")("c")(F3),
+                Apply3<string, string, string, string>("a", "b", "c")(F3),
+                Apply3WithFlip<string, string, string, string>("a")("b")("c")(F3)
+            }, AssertEqual(E3));
+        }
+
+        [Fact]
+        public void Apply4_4()
+        {
+            Assert.All(new[] {
+                Apply4<string, string, string, string, string>("a")("b")("c")("d")(F4),
+                Apply4<string, string, string, string, string>("a", "b")("c")("d")(F4),
+                Apply4<string, string, string, string, string>("a", "b", "c")("d")(F4),
+                Apply4<string, string, string, string, string>("a", "b", "c", "d")(F4),
+                Apply4WithFlip<string, string, string, string, string>("a")("b")("c")("d")(F4)
+            }, AssertEqual(E4));
+        }
+
+        [Fact]
+        public void Apply5_5()
+        {
+            Assert.All(new[] {
+                Apply5<string, string, string, string, string, string>("a")("b")("c")("d")("e")(F5),
+                Apply5<string, string, string, string, string, string>("a", "b")("c")("d")("e")(F5),
+                Apply5<string, string, string, string, string, string>("a", "b", "c")("d")("e")(F5),
+                Apply5<string, string, string, string, string, string>("a", "b", "c", "d")("e")(F5),
+                Apply5<string, string, string, string, string, string>("a", "b", "c", "d", "e")(F5),
+                Apply5WithFlip<string, string, string, string, string, string>("a")("b")("c")("d")("e")(F5)
+            }, AssertEqual(E5));
         }
 
         #endregion
@@ -161,45 +213,50 @@ namespace DeadToadRoad.Fun.Tests
         #region Reverse
 
         [Fact]
-        public void Reverse3_3()
+        public void Reverse2_2()
         {
-            var actual = Reverse3(F3)("c")("b")("a");
+            var a2 = A2("b")("a");
+            Assert.All(new[] {
+                a2(Reverse2(F2)),
+                a2(Reverse2WithFlip(F2))
+            }, AssertEqual(E2));
+        }
+
+        [Fact]
+        public void Reverse2_3()
+        {
+            var actual = Reverse2(F3)("b")("a")("c");
             Assert.Equal(E3, actual);
         }
 
         [Fact]
-        public void Reverse3_4()
+        public void Reverse3_3()
         {
-            var actual = Reverse3(F4)("c")("b")("a")("d");
-            Assert.Equal(E4, actual);
+            var a3 = A3("c")("b")("a");
+            Assert.All(new[] {
+                a3(Reverse3(F3)),
+                a3(Reverse3WithFlip(F3))
+            }, AssertEqual(E3));
         }
 
         [Fact]
-        public void Reverse2_Reverse2WithFlip()
+        public void Reverse4_4()
         {
-            var actual = A5(Reverse2(F5));
-            Assert.Equal(A5(Reverse2WithFlip(F5)), actual);
+            var a4 = A4("d")("c")("b")("a");
+            Assert.All(new[] {
+                a4(Reverse4(F4)),
+                a4(Reverse4WithFlip(F4))
+            }, AssertEqual(E4));
         }
 
         [Fact]
-        public void Reverse3_Reverse3WithFlip()
+        public void Reverse5_5()
         {
-            var actual = A5(Reverse3(F5));
-            Assert.Equal(A5(Reverse3WithFlip(F5)), actual);
-        }
-
-        [Fact]
-        public void Reverse4_Reverse4WithFlip()
-        {
-            var actual = A5(Reverse4(F5));
-            Assert.Equal(A5(Reverse4WithFlip(F5)), actual);
-        }
-
-        [Fact]
-        public void Reverse5_Reverse5WithFlip()
-        {
-            var actual = A5(Reverse5(F5));
-            Assert.Equal(A5(Reverse5WithFlip(F5)), actual);
+            var a5 = A5("e")("d")("c")("b")("a");
+            Assert.All(new[] {
+                a5(Reverse5(F5)),
+                a5(Reverse5WithFlip(F5))
+            }, AssertEqual(E5));
         }
 
         #endregion
@@ -207,45 +264,50 @@ namespace DeadToadRoad.Fun.Tests
         #region RotateLeft
 
         [Fact]
-        public void RotateLeft3_3()
+        public void RotateLeft2_2()
         {
-            var actual = RotateLeft3(F3)("b")("c")("a");
+            var a2 = A2("b")("a");
+            Assert.All(new[] {
+                a2(RotateLeft2(F2)),
+                a2(RotateLeft2WithFlip(F2))
+            }, AssertEqual(E2));
+        }
+
+        [Fact]
+        public void RotateLeft2_3()
+        {
+            var actual = RotateLeft2(F3)("b")("a")("c");
             Assert.Equal(E3, actual);
         }
 
         [Fact]
-        public void RotateLeft3_4()
+        public void RotateLeft3_3()
         {
-            var actual = RotateLeft3(F4)("b")("c")("a")("d");
-            Assert.Equal(E4, actual);
+            var a3 = A3("b")("c")("a");
+            Assert.All(new[] {
+                a3(RotateLeft3(F3)),
+                a3(RotateLeft3WithFlip(F3))
+            }, AssertEqual(E3));
         }
 
         [Fact]
-        public void RotateLeft2_RotateLeft2WithFlip()
+        public void RotateLeft4_4()
         {
-            var actual = A5(RotateLeft2(F5));
-            Assert.Equal(A5(RotateLeft2WithFlip(F5)), actual);
+            var a4 = A4("b")("c")("d")("a");
+            Assert.All(new[] {
+                a4(RotateLeft4(F4)),
+                a4(RotateLeft4WithFlip(F4))
+            }, AssertEqual(E4));
         }
 
         [Fact]
-        public void RotateLeft3_RotateLeft3WithFlip()
+        public void RotateLeft5_5()
         {
-            var actual = A5(RotateLeft3(F5));
-            Assert.Equal(A5(RotateLeft3WithFlip(F5)), actual);
-        }
-
-        [Fact]
-        public void RotateLeft4_RotateLeft4WithFlip()
-        {
-            var actual = A5(RotateLeft4(F5));
-            Assert.Equal(A5(RotateLeft4WithFlip(F5)), actual);
-        }
-
-        [Fact]
-        public void RotateLeft5_RotateLeft5WithFlip()
-        {
-            var actual = A5(RotateLeft5(F5));
-            Assert.Equal(A5(RotateLeft5WithFlip(F5)), actual);
+            var a5 = A5("b")("c")("d")("e")("a");
+            Assert.All(new[] {
+                a5(RotateLeft5(F5)),
+                a5(RotateLeft5WithFlip(F5))
+            }, AssertEqual(E5));
         }
 
         #endregion
@@ -253,50 +315,69 @@ namespace DeadToadRoad.Fun.Tests
         #region RotateRight
 
         [Fact]
-        public void RotateRight3_3()
+        public void RotateRight2_2()
         {
-            var actual = RotateRight3(F3)("c")("a")("b");
+            var a2 = A2("b")("a");
+            Assert.All(new[] {
+                a2(RotateRight2(F2)),
+                a2(RotateRight2WithFlip(F2))
+            }, AssertEqual(E2));
+        }
+
+        [Fact]
+        public void RotateRight2_3()
+        {
+            var actual = RotateRight2(F3)("b")("a")("c");
             Assert.Equal(E3, actual);
         }
 
         [Fact]
-        public void RotateRight3_4()
+        public void RotateRight3_3()
         {
-            var actual = RotateRight3(F4)("c")("a")("b")("d");
-            Assert.Equal(E4, actual);
+            var a3 = A3("c")("a")("b");
+            Assert.All(new[] {
+                a3(RotateRight3(F3)),
+                a3(RotateRight3WithFlip(F3))
+            }, AssertEqual(E3));
         }
 
         [Fact]
-        public void RotateRight2_RotateRight2WithFlip()
+        public void RotateRight4_4()
         {
-            var actual = A5(RotateRight2(F5));
-            Assert.Equal(A5(RotateRight2WithFlip(F5)), actual);
+            var a4 = A4("d")("a")("b")("c");
+            Assert.All(new[] {
+                a4(RotateRight4(F4)),
+                a4(RotateRight4WithFlip(F4))
+            }, AssertEqual(E4));
         }
 
         [Fact]
-        public void RotateRight3_RotateRight3WithFlip()
+        public void RotateRight5_5()
         {
-            var actual = A5(RotateRight3(F5));
-            Assert.Equal(A5(RotateRight3WithFlip(F5)), actual);
-        }
-
-        [Fact]
-        public void RotateRight4_RotateRight4WithFlip()
-        {
-            var actual = A5(RotateRight4(F5));
-            Assert.Equal(A5(RotateRight4WithFlip(F5)), actual);
-        }
-
-        [Fact]
-        public void RotateRight5_RotateRight5WithFlip()
-        {
-            var actual = A5(RotateRight5(F5));
-            Assert.Equal(A5(RotateRight5WithFlip(F5)), actual);
+            var a5 = A5("e")("a")("b")("c")("d");
+            Assert.All(new[] {
+                a5(RotateRight5(F5)),
+                a5(RotateRight5WithFlip(F5))
+            }, AssertEqual(E5));
         }
 
         #endregion
 
         #region Uncurry
+
+        [Fact]
+        public void Uncurry2_2()
+        {
+            var actual = Uncurry2(F2)("a", "b");
+            Assert.Equal(E2, actual);
+        }
+
+        [Fact]
+        public void Uncurry2_3()
+        {
+            var actual = Uncurry2(F3)("a", "b")("c");
+            Assert.Equal(E3, actual);
+        }
 
         [Fact]
         public void Uncurry3_3()
@@ -306,15 +387,46 @@ namespace DeadToadRoad.Fun.Tests
         }
 
         [Fact]
-        public void Uncurry3_4()
+        public void Uncurry4_4()
         {
-            var actual = Uncurry3(F4)("a", "b", "c")("d");
+            var actual = Uncurry4(F4)("a", "b", "c", "d");
             Assert.Equal(E4, actual);
+        }
+
+        [Fact]
+        public void Uncurry5_5()
+        {
+            var actual = Uncurry5(F5)("a", "b", "c", "d", "e");
+            Assert.Equal(E5, actual);
         }
 
         #endregion
 
         #region Alternative Functions
+
+        #region Apply
+
+        public static Func<TB, Func<Func<TA, Func<TB, TC>>, TC>> Apply2WithFlip<TA, TB, TC>(TA a)
+        {
+            return RotateLeft2WithFlip(Apply<TA, Func<TB, TC>>(a));
+        }
+
+        public static Func<TB, Func<TC, Func<Func<TA, Func<TB, Func<TC, TD>>>, TD>>> Apply3WithFlip<TA, TB, TC, TD>(TA a)
+        {
+            return RotateLeft3WithFlip(Apply<TA, Func<TB, Func<TC, TD>>>(a));
+        }
+
+        public static Func<TB, Func<TC, Func<TD, Func<Func<TA, Func<TB, Func<TC, Func<TD, TE>>>>, TE>>>> Apply4WithFlip<TA, TB, TC, TD, TE>(TA a)
+        {
+            return RotateLeft4WithFlip(Apply<TA, Func<TB, Func<TC, Func<TD, TE>>>>(a));
+        }
+
+        public static Func<TB, Func<TC, Func<TD, Func<TE, Func<Func<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>>, TF>>>>> Apply5WithFlip<TA, TB, TC, TD, TE, TF>(TA a)
+        {
+            return RotateLeft5WithFlip(Apply<TA, Func<TB, Func<TC, Func<TD, Func<TE, TF>>>>>(a));
+        }
+
+        #endregion
 
         #region Flip
 
