@@ -7,7 +7,7 @@ namespace DeadToadRoad.Fun
     {
         public static IEnumerable<TA> Flatten<TA>(IEnumerable<Option<TA>> @as)
         {
-            return @as.SelectMany(OptionMembers.ToArray);
+            return @as.SelectMany(OptionMembers.ToEnumerable);
         }
     }
 }

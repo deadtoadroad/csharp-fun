@@ -28,7 +28,6 @@ namespace DeadToadRoad.Fun
         }
 
         public abstract Option<TB> Map<TB>(Func<TA, TB> f);
-        public abstract TA[] ToArray();
-        public abstract IList<TA> ToList();
+        public abstract IEnumerable<TA> ToEnumerable();
     }
 }

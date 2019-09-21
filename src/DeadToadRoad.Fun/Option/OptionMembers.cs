@@ -45,14 +45,9 @@ namespace DeadToadRoad.Fun
             return a => a.Map(f);
         }
 
-        public static TA[] ToArray<TA>(Option<TA> a)
+        public static IEnumerable<TA> ToEnumerable<TA>(Option<TA> a)
         {
-            return a.ToArray();
-        }
-
-        public static IList<TA> ToList<TA>(Option<TA> a)
-        {
-            return a.ToList();
+            return a.ToEnumerable();
         }
     }
 }

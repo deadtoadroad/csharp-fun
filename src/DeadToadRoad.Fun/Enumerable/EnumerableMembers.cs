@@ -12,6 +12,11 @@ namespace DeadToadRoad.Fun
             return @as => @as.All(p);
         }
 
+        public static Func<IEnumerable<TA>, IEnumerable<TA>> Append<TA>(Option<TA> a)
+        {
+            return Concat(a.ToEnumerable());
+        }
+
         public static IEnumerable<TA> Cast<TA>(IEnumerable @as)
         {
             return @as.Cast<TA>();
@@ -30,6 +35,11 @@ namespace DeadToadRoad.Fun
         public static IEnumerable<TA> Flatten<TA>(IEnumerable<IEnumerable<TA>> @as)
         {
             return @as.SelectMany(Functions.Identity);
+        }
+
+        public static Func<IEnumerable<TA>, IEnumerable<TA>> Prepend<TA>(Option<TA> a)
+        {
+            return PrependRange(a.ToEnumerable());
         }
 
         public static Func<IEnumerable<TA>, IEnumerable<TA>> PrependRange<TA>(IEnumerable<TA> range)

@@ -32,14 +32,9 @@ namespace DeadToadRoad.Fun
             return Functions.None<TB>();
         }
 
-        public override TA[] ToArray()
+        public override IEnumerable<TA> ToEnumerable()
         {
-            return new TA[0];
-        }
-
-        public override IList<TA> ToList()
-        {
-            return new List<TA>();
+            yield break;
         }
     }
 }
