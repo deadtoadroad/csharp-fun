@@ -6,28 +6,64 @@ namespace DeadToadRoad.Fun.Extensions
     {
         #region If
 
-        public static Func<Func<TA, TB>, Option<TB>> If<TA, TB>(this TA a, TA v)
+        public static Option<TA> If<TA>(this TA a, TA v)
             where TA : struct
         {
-            return Functions.RotateRight2(Functions.If<TA, TB>(v))(a);
+            return Functions.If(v)(a);
         }
 
-        public static Func<Func<TA, TB>, Option<TB>> IfNot<TA, TB>(this TA a, TA v)
+        public static Option<TA> IfNot<TA>(this TA a, TA v)
             where TA : struct
         {
-            return Functions.RotateRight2(Functions.IfNot<TA, TB>(v))(a);
+            return Functions.IfNot(v)(a);
         }
 
-        public static Func<Func<TA, TB>, TB> IfUnsafe<TA, TB>(this TA a, TA v)
+        public static Func<Func<TA, TB>, Option<TB>> IfMap<TA, TB>(this TA a, TA v)
             where TA : struct
         {
-            return Functions.RotateRight2(Functions.IfUnsafe<TA, TB>(v))(a);
+            return Functions.RotateRight2(Functions.IfMap<TA, TB>(v))(a);
         }
 
-        public static Func<Func<TA, TB>, TB> IfNotUnsafe<TA, TB>(this TA a, TA v)
+        public static Option<TB> IfMap<TA, TB>(this TA a, TA v, Func<TA, TB> f)
             where TA : struct
         {
-            return Functions.RotateRight2(Functions.IfNotUnsafe<TA, TB>(v))(a);
+            return Functions.IfMap(v, f)(a);
+        }
+
+        public static Func<Func<TA, TB>, Option<TB>> IfNotMap<TA, TB>(this TA a, TA v)
+            where TA : struct
+        {
+            return Functions.RotateRight2(Functions.IfNotMap<TA, TB>(v))(a);
+        }
+
+        public static Option<TB> IfNotMap<TA, TB>(this TA a, TA v, Func<TA, TB> f)
+            where TA : struct
+        {
+            return Functions.IfNotMap(v, f)(a);
+        }
+
+        public static Func<Func<TA, TB>, TB> IfMapUnsafe<TA, TB>(this TA a, TA v)
+            where TA : struct
+        {
+            return Functions.RotateRight2(Functions.IfMapUnsafe<TA, TB>(v))(a);
+        }
+
+        public static TB IfMapUnsafe<TA, TB>(this TA a, TA v, Func<TA, TB> f)
+            where TA : struct
+        {
+            return Functions.IfMapUnsafe(v, f)(a);
+        }
+
+        public static Func<Func<TA, TB>, TB> IfNotMapUnsafe<TA, TB>(this TA a, TA v)
+            where TA : struct
+        {
+            return Functions.RotateRight2(Functions.IfNotMapUnsafe<TA, TB>(v))(a);
+        }
+
+        public static TB IfNotMapUnsafe<TA, TB>(this TA a, TA v, Func<TA, TB> f)
+            where TA : struct
+        {
+            return Functions.IfNotMapUnsafe(v, f)(a);
         }
 
         #endregion

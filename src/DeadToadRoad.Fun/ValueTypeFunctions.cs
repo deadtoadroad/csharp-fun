@@ -6,28 +6,64 @@ namespace DeadToadRoad.Fun
     {
         #region If
 
-        public static Func<Func<TA, TB>, Func<TA, Option<TB>>> If<TA, TB>(TA v)
+        public static Func<TA, Option<TA>> If<TA>(TA v)
             where TA : struct
         {
-            return If<TA, TB>(IsEqual(v));
+            return If(IsEqual(v));
         }
 
-        public static Func<Func<TA, TB>, Func<TA, Option<TB>>> IfNot<TA, TB>(TA v)
+        public static Func<TA, Option<TA>> IfNot<TA>(TA v)
             where TA : struct
         {
-            return If<TA, TB>(IsNotEqual(v));
+            return If(IsNotEqual(v));
         }
 
-        public static Func<Func<TA, TB>, Func<TA, TB>> IfUnsafe<TA, TB>(TA v)
+        public static Func<Func<TA, TB>, Func<TA, Option<TB>>> IfMap<TA, TB>(TA v)
             where TA : struct
         {
-            return f => Flow(If<TA, TB>(v)(f), OptionMembers.GetUnsafe);
+            return IfMap<TA, TB>(IsEqual(v));
         }
 
-        public static Func<Func<TA, TB>, Func<TA, TB>> IfNotUnsafe<TA, TB>(TA v)
+        public static Func<TA, Option<TB>> IfMap<TA, TB>(TA v, Func<TA, TB> f)
             where TA : struct
         {
-            return f => Flow(IfNot<TA, TB>(v)(f), OptionMembers.GetUnsafe);
+            return IfMap<TA, TB>(v)(f);
+        }
+
+        public static Func<Func<TA, TB>, Func<TA, Option<TB>>> IfNotMap<TA, TB>(TA v)
+            where TA : struct
+        {
+            return IfMap<TA, TB>(IsNotEqual(v));
+        }
+
+        public static Func<TA, Option<TB>> IfNotMap<TA, TB>(TA v, Func<TA, TB> f)
+            where TA : struct
+        {
+            return IfNotMap<TA, TB>(v)(f);
+        }
+
+        public static Func<Func<TA, TB>, Func<TA, TB>> IfMapUnsafe<TA, TB>(TA v)
+            where TA : struct
+        {
+            return IfMapUnsafe<TA, TB>(IsEqual(v));
+        }
+
+        public static Func<TA, TB> IfMapUnsafe<TA, TB>(TA v, Func<TA, TB> f)
+            where TA : struct
+        {
+            return IfMapUnsafe<TA, TB>(v)(f);
+        }
+
+        public static Func<Func<TA, TB>, Func<TA, TB>> IfNotMapUnsafe<TA, TB>(TA v)
+            where TA : struct
+        {
+            return IfMapUnsafe<TA, TB>(IsNotEqual(v));
+        }
+
+        public static Func<TA, TB> IfNotMapUnsafe<TA, TB>(TA v, Func<TA, TB> f)
+            where TA : struct
+        {
+            return IfNotMapUnsafe<TA, TB>(v)(f);
         }
 
         #endregion

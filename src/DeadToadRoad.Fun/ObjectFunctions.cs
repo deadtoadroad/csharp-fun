@@ -26,23 +26,38 @@ namespace DeadToadRoad.Fun
 
         #region If
 
-        public static Func<Func<TA, TB>, Func<TA, Option<TB>>> If<TA, TB>(Func<TA, bool> p)
+        public static Func<TA, Option<TA>> If<TA>(Func<TA, bool> p)
         {
-            return f => a => p(a) ? Some(f(a)) : None<TB>();
+            return a => ToOption(a).Filter(p);
         }
 
-        public static Func<Func<TA, TB>, Func<TA, TB>> IfUnsafe<TA, TB>(Func<TA, bool> p)
+        public static Func<Func<TA, TB>, Func<TA, Option<TB>>> IfMap<TA, TB>(Func<TA, bool> p)
         {
-            return f => Flow(If<TA, TB>(p)(f), OptionMembers.GetUnsafe);
+            return f => Compose(OptionMembers.Map(f), If(p));
+        }
+
+        public static Func<TA, Option<TB>> IfMap<TA, TB>(Func<TA, bool> p, Func<TA, TB> f)
+        {
+            return IfMap<TA, TB>(p)(f);
+        }
+
+        public static Func<Func<TA, TB>, Func<TA, TB>> IfMapUnsafe<TA, TB>(Func<TA, bool> p)
+        {
+            return Compose(Compose<TA, Option<TB>, TB>(OptionMembers.GetUnsafe), IfMap<TA, TB>(p));
+        }
+
+        public static Func<TA, TB> IfMapUnsafe<TA, TB>(Func<TA, bool> p, Func<TA, TB> f)
+        {
+            return IfMapUnsafe<TA, TB>(p)(f);
         }
 
         #endregion
 
         #region Match
 
-        public static Func<Func<TA, TB>, Func<TA, TB>> Match<TA, TB>(params Func<TA, Option<TB>>[] ifs)
+        public static Func<Func<TA, TB>, Func<TA, TB>> Match<TA, TB>(params Func<TA, Option<TB>>[] ifMaps)
         {
-            return @else => a => ifs
+            return @else => a => ifMaps
                 .Select(Apply<TA, Option<TB>>(a))
                 .FirstOrDefault(OptionMembers.IsSome)
                 .ToOption()
@@ -50,9 +65,9 @@ namespace DeadToadRoad.Fun
                 .GetOrElse(() => @else(a));
         }
 
-        public static Func<TA, TB> MatchUnsafe<TA, TB>(params Func<TA, Option<TB>>[] ifs)
+        public static Func<TA, TB> MatchUnsafe<TA, TB>(params Func<TA, Option<TB>>[] ifMaps)
         {
-            return Match(ifs)(_ => default);
+            return Match(ifMaps)(_ => default);
         }
 
         #endregion
@@ -76,7 +91,7 @@ namespace DeadToadRoad.Fun
 
         public static Func<TA, bool> IsNotEqual<TA>(TA v)
         {
-            return Not(IsEqual(v));
+            return Not<TA, TA>(IsEqual)(v);
         }
 
         public static bool IsNull<TA>(TA a)

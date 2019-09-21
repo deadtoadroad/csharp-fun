@@ -24,28 +24,43 @@ namespace DeadToadRoad.Fun.Extensions
 
         #region If
 
-        public static Func<Func<TA, TB>, Option<TB>> If<TA, TB>(this TA a, Func<TA, bool> p)
+        public static Option<TA> If<TA>(this TA a, Func<TA, bool> p)
         {
-            return Functions.RotateRight2(Functions.If<TA, TB>(p))(a);
+            return Functions.If(p)(a);
         }
 
-        public static Func<Func<TA, TB>, TB> IfUnsafe<TA, TB>(this TA a, Func<TA, bool> p)
+        public static Func<Func<TA, TB>, Option<TB>> IfMap<TA, TB>(this TA a, Func<TA, bool> p)
         {
-            return Functions.RotateRight2(Functions.IfUnsafe<TA, TB>(p))(a);
+            return Functions.RotateRight2(Functions.IfMap<TA, TB>(p))(a);
+        }
+
+        public static Option<TB> IfMap<TA, TB>(this TA a, Func<TA, bool> p, Func<TA, TB> f)
+        {
+            return Functions.IfMap(p, f)(a);
+        }
+
+        public static Func<Func<TA, TB>, TB> IfMapUnsafe<TA, TB>(this TA a, Func<TA, bool> p)
+        {
+            return Functions.RotateRight2(Functions.IfMapUnsafe<TA, TB>(p))(a);
+        }
+
+        public static TB IfMapUnsafe<TA, TB>(this TA a, Func<TA, bool> p, Func<TA, TB> f)
+        {
+            return Functions.IfMapUnsafe(p, f)(a);
         }
 
         #endregion
 
         #region Match
 
-        public static Func<Func<TA, TB>, TB> Match<TA, TB>(this TA a, params Func<TA, Option<TB>>[] ifs)
+        public static Func<Func<TA, TB>, TB> Match<TA, TB>(this TA a, params Func<TA, Option<TB>>[] ifMaps)
         {
-            return Functions.RotateRight2(Functions.Match(ifs))(a);
+            return Functions.RotateRight2(Functions.Match(ifMaps))(a);
         }
 
-        public static TB MatchUnsafe<TA, TB>(this TA a, params Func<TA, Option<TB>>[] ifs)
+        public static TB MatchUnsafe<TA, TB>(this TA a, params Func<TA, Option<TB>>[] ifMaps)
         {
-            return Functions.MatchUnsafe(ifs)(a);
+            return Functions.MatchUnsafe(ifMaps)(a);
         }
 
         #endregion

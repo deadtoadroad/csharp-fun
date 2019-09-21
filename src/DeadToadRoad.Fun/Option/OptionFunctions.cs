@@ -17,12 +17,12 @@ namespace DeadToadRoad.Fun
         public static Option<TA> ToOption<TA>(TA? a)
             where TA : struct
         {
-            return If<TA?, TA>(HasValue)(NullableMembers.Value)(a);
+            return NullableMembers.HasValue(a) ? Some(NullableMembers.Value(a)) : None<TA>();
         }
 
         public static Option<TA> ToOption<TA>(TA a)
         {
-            return If<TA, TA>(IsNotNull)(Identity)(a);
+            return IsNotNull(a) ? Some(a) : None<TA>();
         }
 
         #endregion

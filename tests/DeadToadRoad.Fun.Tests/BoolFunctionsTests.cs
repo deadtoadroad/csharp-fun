@@ -12,33 +12,33 @@ namespace DeadToadRoad.Fun.Tests
         #region If
 
         [Fact]
-        public void If_True()
+        public void IfMap_True()
         {
-            var actual = If(DefaultF)(true);
+            var actual = IfMap(DefaultF)(true);
             Assert.True(actual.IsSome);
             Assert.Equal(DefaultExpected, actual.GetUnsafe());
         }
 
         [Fact]
-        public void If_False()
+        public void IfMap_False()
         {
-            var actual = If(DefaultF)(false);
+            var actual = IfMap(DefaultF)(false);
             Assert.True(actual.IsNone);
             Assert.Equal(default, actual.GetUnsafe());
         }
 
         [Fact]
-        public void IfNot_True()
+        public void IfNotMap_True()
         {
-            var actual = IfNot(DefaultF)(true);
+            var actual = IfNotMap(DefaultF)(true);
             Assert.True(actual.IsNone);
             Assert.Equal(default, actual.GetUnsafe());
         }
 
         [Fact]
-        public void IfNot_False()
+        public void IfNotMap_False()
         {
-            var actual = IfNot(DefaultF)(false);
+            var actual = IfNotMap(DefaultF)(false);
             Assert.True(actual.IsSome);
             Assert.Equal(DefaultExpected, actual.GetUnsafe());
         }

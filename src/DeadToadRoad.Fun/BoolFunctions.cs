@@ -6,44 +6,44 @@ namespace DeadToadRoad.Fun
     {
         #region If
 
-        public static Func<bool, Option<TB>> If<TB>(TB b)
+        public static Func<bool, Option<TB>> IfMap<TB>(TB b)
         {
-            return If(() => b);
+            return IfMap<bool, TB>(IsTrue, _ => b);
         }
 
-        public static Func<bool, Option<TB>> IfNot<TB>(TB b)
+        public static Func<bool, Option<TB>> IfNotMap<TB>(TB b)
         {
-            return IfNot(() => b);
+            return IfMap<bool, TB>(IsFalse, _ => b);
         }
 
-        public static Func<bool, Option<TB>> If<TB>(Func<TB> f)
+        public static Func<bool, Option<TB>> IfMap<TB>(Func<TB> f)
         {
-            return If<bool, TB>(IsTrue)(_ => f());
+            return IfMap<bool, TB>(IsTrue, _ => f());
         }
 
-        public static Func<bool, Option<TB>> IfNot<TB>(Func<TB> f)
+        public static Func<bool, Option<TB>> IfNotMap<TB>(Func<TB> f)
         {
-            return If<bool, TB>(IsFalse)(_ => f());
+            return IfMap<bool, TB>(IsFalse)(_ => f());
         }
 
-        public static Func<bool, TB> IfUnsafe<TB>(TB b)
+        public static Func<bool, TB> IfMapUnsafe<TB>(TB b)
         {
-            return Flow(If(b), OptionMembers.GetUnsafe);
+            return IfMapUnsafe<bool, TB>(IsTrue, _ => b);
         }
 
-        public static Func<bool, TB> IfNotUnsafe<TB>(TB b)
+        public static Func<bool, TB> IfNotMapUnsafe<TB>(TB b)
         {
-            return Flow(IfNot(b), OptionMembers.GetUnsafe);
+            return IfMapUnsafe<bool, TB>(IsFalse, _ => b);
         }
 
-        public static Func<bool, TB> IfUnsafe<TB>(Func<TB> f)
+        public static Func<bool, TB> IfMapUnsafe<TB>(Func<TB> f)
         {
-            return Flow(If(f), OptionMembers.GetUnsafe);
+            return IfMapUnsafe<bool, TB>(IsTrue, _ => f());
         }
 
-        public static Func<bool, TB> IfNotUnsafe<TB>(Func<TB> f)
+        public static Func<bool, TB> IfNotMapUnsafe<TB>(Func<TB> f)
         {
-            return Flow(IfNot(f), OptionMembers.GetUnsafe);
+            return IfMapUnsafe<bool, TB>(IsFalse, _ => f());
         }
 
         #endregion
